@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>LED power calculator</title>
+  <style>
+  a { color: #0000EE; cursor: pointer; text-decoration: underline;}
+  span {white-space: nowrap;}
+  div {padding-bottom: 10px;}
+ .select-wrapper-100 {
+    position: relative;
+    width: 100px;
+    white-space: nowrap;
+  }
+ .select-wrapper-200 {
+    position: relative;
+    width: 200px;
+    white-space: nowrap;
+  }
+ .select-wrapper-300 {
+    position: relative;
+    width: 300px;
+    white-space: nowrap;
+  }
+ .button-wrapper {
+   position: relative;
+   width: 200px;
+ }
+body {
+  background-color: #66CCFF;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+#lang {width: 200px;}
+#select-leds {width: 200px;}
+#select-colors {width: 200px;}
+#select-brightness {width: 100px;}
+#select-temp {width: 100px;}
+#select-vdrop {width: 300px;}
+#select-systems {width: 300px;}
+select, button, input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #3399FF;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  height: 40px;
+  outline: none;
+  padding-left: 10px;
+}
+
+button {width: 200px;}
+
+select option {
+  color: #FFF;
+}
+.select-wrapper-100::after, .select-wrapper-200::after, .select-wrapper-300::after {
+  content: "\1F853";
+  font-size: 20px;
+  position: absolute;
+  right: 15px;
+  top: 0px;
+  color: #fff;
+  pointer-events: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+select:focus::-ms-value {
+  background-color: transparent;
+}
+
+.number-wrapper {
+  position: relative;
+  background-color: transparent;
+  font-size: 20px;
+}
+  </style>
+</head>
+<body>
+  <h2>LED power calculator <span style='color:red'>BETA</span></h2>
+  <div>Language/Sprache:
+  <span class="select-wrapper-200">
+  <select id="lang" onchange="LangChanged();">
+        <option value="0">Deutsch</option>
+        <option value="1">English</option>
+  </select></span></div>
+  <div>
+  <span id="L01"><span style="color:red">Attention:</span> rough estimation.</span>
+      </span><a onclick="ShowWarningDetails()"><span id="L01a">Read there more details</span></a>
+  </div>
+  <div id="WarningDetails">
+    <ul>
+        <li id="L02b"></li>
+        <li id="L02c"></li>
+        <li id="L02d"></li>
+        <li id="L02e"></li>
+        <li id="L02f"></li>
+    </ul>    
+  </div>
+      <hr>
+      <div id="MainContainer">
+          <h3 id="L03">Input fields:</h3>
+          <div>
+              <span><span id="L04">LED strip type:</span>
+              <span class="select-wrapper-200">
+              <select id="select-leds" onchange="CalcResults();">
+              </select></span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span><span id="L05">Color:</span>
+              <span class="select-wrapper-200">
+              <select id="select-colors" onchange="CalcResults();">
+              </select></span></span>
+          </div>
+          <div>
+              <span><span id="L06">Number of LEDs:</span>
+              <span class="number-wrapper">
+              <input id="input-numberofleds" type="Number" min="1" size="5" onchange="CalcResults();">
+                </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span><span id="L07">Brightness:</span>
+              <span class="select-wrapper-100">
+              <select id="select-brightness" onchange="CalcResults();"></select>
+                </span></span>
+          </div>
+          <div>
+              <span><span id="L08">Wire length:</span>
+              <span class="number-wrapper">
+              <input id="input-wirelen" type="Number" min="1" size="5" onchange="CalcResults();">
+                </span>&nbsp;cm</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span><span id="L09">Ambient temperature:</span>
+              <span class="select-wrapper-100">
+              <select id="select-temp" onchange="CalcResults();"></select>
+                </span></span>
+          </div>
+          <div>
+              <span><span id="L10">Max voltage drop:</span>
+              <span class="select-wrapper-300">
+              <select id="select-vdrop" onchange="CalcResults();">
+              </select>
+                </span></span>
+          </div>
+          <div>
+              <span><span id="L11">Wire laying:</span>
+              <span class="select-wrapper-300">
+              <select id="select-systems" onchange="CalcResults();">
+              </select>
+                </span></span>
+          </div>
+          <hr>
+          <div>
+          <h3 id="L12">Results:</h3>
+          <ul>
+            <li><span id="L12a">LED power consumption: </span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></li>
+            <li><span id="L12b">Recommended minimal wire crosssection: </span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</li>
+            <li><span id="L12c">Recommended fuse (automotive standart or mini): </span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></li>
+            <li><span id="L12d">Total voltage drop (wire  + fuse): </span><b><span id="vdrop_result"></span> V</b></li>
+          </ul>
+          </div>
+      </div>
+      <div id="WaitContainer">
+        <span id="L13">Please wait ... loading dataset ...</span>
+      </div>
+      <hr>
+      <div>
+      <h3 id="L14">Nützliche Informationen:</h3>
+        <ul>
+          <li><span id="L14a">WLED Wiki:</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
+          <li><span id="L14b">DIY WLED boards:</span> <a href="https://github.com/wladwnt/wled">Github</a></li>
+          <li><span id="L14c">Professionelle WLED Boards:</span> <a href="https://wled.shop">WLED Shop</a></li>
+          <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
+        </ul>
+      </div>
+<script>
+var dataset;
+function LangChanged() {
+    if(document.getElementById('lang').selectedIndex==0) {
+        if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur grobe Schätzung.";
+        if(document.getElementById('L01a')) document.getElementById('L01a').innerHTML = "Lesen Sie hier mehr Details";
+        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "<span style='color:red'>Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Kalkulator kann lediglich eine erste Schätzung liefern!</span>";
+        if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative Grundlagen: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430";
+        if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
+        if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Zusätzlich einige anderen Vereinfachungen und Annahmen!";
+        if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Sicherungsdaten: basierend auf Littlefuse Datenblättern";
+        
+        if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Eingaben:";
+        if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED Streifen Typ:";
+        if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Farbe zum Leuchten:";
+        if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Anzahl von LEDs:";
+        if(document.getElementById('L07')) document.getElementById('L07').innerHTML = "Helligkeit:";
+        if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Länge der Zuleitung (Netzteil zum LED):";
+        if(document.getElementById('L09')) document.getElementById('L09').innerHTML = "Umgebungstemperatur:";
+        if(document.getElementById('L10')) document.getElementById('L10').innerHTML = "Maximal zulässiger Spannungseinbruch:";
+        if(document.getElementById('L11')) document.getElementById('L11').innerHTML = "Leitungsverlegung:";
+        if(document.getElementById('L12')) document.getElementById('L12').innerHTML = "Ergebnisse:";
+        if(document.getElementById('L12a')) document.getElementById('L12a').innerHTML = "LED Leistungsaufnahme: ";
+        if(document.getElementById('L12b')) document.getElementById('L12b').innerHTML = "Empfohlener minimaler Querschnitt der Zuleitungen: ";
+        if(document.getElementById('L12c')) document.getElementById('L12c').innerHTML = "Empfohlene Sicherung (KFZ Standard oder Mini Fuse): ";
+        if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Spannungsabfall gesamt (Zulietung  + Sicherung): ";
+        
+        if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED Boards:';
+        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professionelle WLED Boards:';
+        if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-basierter WLED Software Installer:';
+        if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Nützliche Informationen:";
+      
+    } else {
+        if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> roughly estimation.";
+        if(document.getElementById('L01a')) document.getElementById('L01a').innerHTML = "Read there more details";
+        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "<span style='color:red'>For a specified design of an electrical system, YOU must precisely meet the normative specifications applicable in your country! This calculator can only provide a first estimate!</span>";
+        if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative bases: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430 (German technical rules)";
+        if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Assumption: cable with PVC insulation; maximum operating temperature 70°C";
+        if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Additionally some other simplifications and assumptions!";
+        if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Fuse data: based on Littlefuse datasheets";
+        
+        if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Input fields:";
+        if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED strip type:";
+        if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Color to be controlled:";
+        if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Number of LEDs:";
+        if(document.getElementById('L07')) document.getElementById('L07').innerHTML = "Brightness:";
+        if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Wire length (Power source unit to LED):";
+        if(document.getElementById('L09')) document.getElementById('L09').innerHTML = "Ambient temperature:";
+        if(document.getElementById('L10')) document.getElementById('L10').innerHTML = "Max allowed voltage drop:";
+        if(document.getElementById('L11')) document.getElementById('L11').innerHTML = "Wire laying:";
+        if(document.getElementById('L12')) document.getElementById('L12').innerHTML = "Results:";
+        if(document.getElementById('L12a')) document.getElementById('L12a').innerHTML = "LED power consumption: ";
+        if(document.getElementById('L12b')) document.getElementById('L12b').innerHTML = "Recommended minimal wire crosssection: ";
+        if(document.getElementById('L12c')) document.getElementById('L12c').innerHTML = "Recommended fuse (automotive standart or mini): ";
+        if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Total voltage drop (wire  + fuse): ";
+        
+        if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED boards:';
+        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED boards:';
+        if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-based WLED software installer:';
+        if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful web pages:";
+      
+    }
+    LoadDataset();
+}
+
+function CalcResults() {
+    var fuse_load_factor = 0.9;
+    var led_index=parseInt(document.getElementById('select-leds').value);
+    var voltage = dataset.leds.voltages[led_index];
+    var power150=0;
+    var color_index=parseInt(document.getElementById('select-colors').selectedIndex);
+    if(color_index==0) power150=dataset.leds.r_powers[led_index];
+    if(color_index==1) power150=dataset.leds.g_powers[led_index];
+    if(color_index==2) power150=dataset.leds.b_powers[led_index];
+    if(color_index==3) power150=dataset.leds.rgb_powers[led_index];
+    if(color_index==4) power150=dataset.leds.w_powers[led_index];
+    if(color_index==5) power150=dataset.leds.rgbw_powers[led_index];
+
+    var brightness_index=parseInt(document.getElementById('select-brightness').value);
+    var brightness=dataset.light_factors.factors[brightness_index];
+    var numleds=parseInt(document.getElementById('input-numberofleds').value);
+    var wirelen=parseInt(document.getElementById('input-wirelen').value)/100;
+    var max_vdrop_index=parseInt(document.getElementById('select-vdrop').value);
+    var max_vdrop = dataset.vdrop.values[max_vdrop_index];
+    var amb_temp_index=parseInt(document.getElementById('select-temp').value);
+    var amb_temp = dataset.tempcoeff.temps[amb_temp_index];
+    var system_index=parseInt(document.getElementById('select-systems').value);
+
+    var power=power150/150*numleds*brightness;
+    document.getElementById('power_result').innerHTML=power.toFixed(2).toString();
+    
+    var current=power/voltage;
+    document.getElementById('current_result').innerHTML=current.toFixed(2).toString();
+    
+    // we start with the biggest fuse 
+    var fuse_index=dataset.fuses.ratings.length-1;
+    if(current/fuse_load_factor>dataset.fuses.ratings[fuse_index]*(1+(25-amb_temp)/650)) {
+        document.getElementById('fuse_result').innerHTML="<span style='color:red'>Too high current for an automotive mini fuse!</span>";
+        document.getElementById('mm2_result').innerHTML="<span style='color:red'>--</span>";
+        document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
+        document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
+        return;
+    } else {
+        document.getElementById('fuse_result').innerHTML="";
+        document.getElementById('mm2_result').innerHTML="";
+        document.getElementById('awg_result').innerHTML="";
+        document.getElementById('vdrop_result').innerHTML="";
+    }
+    // check all lower fuses if they fulfill the requirements
+   for(var i = fuse_index-1; i>=0; i--) {
+        if(current/fuse_load_factor<=dataset.fuses.ratings[i]*(1+(25-amb_temp)/650)) {
+            fuse_index--;
+        }
+      }
+    // get rating and color of the fuse
+    var fuse_rating=dataset.fuses.ratings[fuse_index];
+    var fuse_color= "("+(document.getElementById('lang').selectedIndex==0?("Farbe der Sicherung: "+dataset.fuses.colors_de[fuse_index]):("fuse color: "+dataset.fuses.colors_en[fuse_index]))+")";
+    // calculate voltage drop over the fuse
+    var fuse_vdrop=dataset.fuses.voltage_drops[fuse_index]/fuse_rating*current/1000;
+    document.getElementById('fuse_result').innerHTML=fuse_rating.toString();
+    document.getElementById('fuse_result_color').innerHTML=fuse_color;
+    
+    // calculate volatge drop left for the wire
+    var wire_vdrop=0;
+    var allowed_wire_vdrop = max_vdrop - fuse_vdrop;
+    // calculate minimum crosssection required based on voltage drop
+    var q_drop = 2*current*0.01786*wirelen/allowed_wire_vdrop*(1+0.0039*(70-20));
+    // get temperature coefficient for wire, will be needed later
+    var wire_temp_coef = dataset.tempcoeff.factors[amb_temp_index];
+    
+    // start with the thickest wire (higher index in dataset)
+    var wire_index=dataset.wires.crosssections.length-1;
+    if(fuse_rating>dataset.wires.max_currents[system_index][wire_index]*wire_temp_coef) {
+        document.getElementById('mm2_result').innerHTML="<span style='color:red'>Too high current</span>";
+        document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
+        document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
+        return;
+    } else {
+        document.getElementById('mm2_result').innerHTML="";
+        document.getElementById('awg_result').innerHTML="";
+        document.getElementById('vdrop_result').innerHTML="";
+    }
+    // go down all wires crosssections, checking if they are still OK
+    for(var i = wire_index-1; i>=0; i--) {
+        if(fuse_rating<=dataset.wires.max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset.wires.crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
+            wire_index--;
+        }
+    }
+    // now we have lowest wire_index, calculate resulting voltage drop
+    wire_vdrop = 2*current*0.01786*wirelen/dataset.wires.crosssections[wire_index]*(1+0.0039*(70-20))
+    
+    document.getElementById('mm2_result').innerHTML=dataset.wires.crosssections[wire_index];
+    document.getElementById('awg_result').innerHTML=dataset.wires.awgs[wire_index];
+    
+    //resulting total voltage drop
+    var total_vdrop=wire_vdrop+fuse_vdrop;
+    document.getElementById('vdrop_result').innerHTML=total_vdrop.toFixed(3).toString();
+}
+
+function LoadDataset() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      dataset = JSON.parse(this.responseText);
+      sel=document.getElementById('select-leds');
+      sel.innerHTML="";
+      for(var i = 0; i < dataset.leds.types.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = dataset.leds.types[i];
+        sel.appendChild(opt);
+      }
+      sel=document.getElementById('select-colors');
+      sel.innerHTML="";
+      for(var i = 0; i < dataset.colors.names_de.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = document.getElementById('lang').selectedIndex==0?dataset.colors.names_de[i]:dataset.colors.names_en[i];
+        sel.appendChild(opt);
+      }
+      sel.selectedIndex=3;
+      
+      sel=document.getElementById('select-brightness');
+      sel.innerHTML="";
+      for(var i = 0; i < dataset.light_factors.names.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = dataset.light_factors.names[i];
+        sel.appendChild(opt);
+      }
+      
+      sel=document.getElementById('select-temp');
+      sel.innerHTML="";
+      for(var i = 0; i < dataset.tempcoeff.temps.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = dataset.tempcoeff.temps[i]+ " °C";
+        sel.appendChild(opt);
+      }
+      sel.selectedIndex=3;
+      
+      sel=document.getElementById('select-vdrop');
+      sel.innerHTML="";
+      for(var i = 0; i < dataset.vdrop.names_de.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = document.getElementById('lang').selectedIndex==0?dataset.vdrop.names_de[i]:dataset.vdrop.names_en[i];
+        sel.appendChild(opt);
+      }
+      sel.selectedIndex=1;
+      
+      sel=document.getElementById('select-systems');
+      sel.innerHTML="";
+      for(var i = 0; i < dataset.systems.names_de.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = document.getElementById('lang').selectedIndex==0?dataset.systems.names_de[i]:dataset.systems.names_en[i];
+        sel.appendChild(opt);
+      }
+      
+      inp=document.getElementById('input-numberofleds');
+      inp.value=150;
+      inp=document.getElementById('input-wirelen');
+      inp.value=50;
+      
+      document.getElementById('MainContainer').style.display = "initial";
+      document.getElementById('WaitContainer').style.display = "none";
+      CalcResults();
+    }
+  };
+  xhttp.open("GET", "dataset.json");
+  xhttp.send(); 
+}
+
+function ShowWarningDetails() {
+document.getElementById('WarningDetails').style.display = "initial";
+document.getElementById('L01a').innerHTML = "";
+}
+
+window.onload = function () {
+    document.getElementById('MainContainer').style.display = "none";
+    document.getElementById('WaitContainer').style.display = "initial";
+    document.getElementById('WarningDetails').style.display = "none";
+    LangChanged();
+    LoadDataset();
+};
+</script>
+</body>
+</html>

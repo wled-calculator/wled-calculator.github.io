@@ -1,0 +1,51 @@
+{
+    "leds" :
+    {
+        "types": ["WS2812B", "WS2812B-ECO", "SK6812", "APA102"],
+        "voltages": [5, 5, 5, 5],
+        "r_powers": [13, 12, 11, 17.5],
+        "g_powers": [13, 12, 11, 17.5],
+        "b_powers": [13, 7, 11, 17.5],
+        "rgb_powers": [33, 24, 25, 45],
+        "w_powers": [0, 0, 18, 0],
+        "rgbw_powers": [33, 24, 39, 45]
+    },
+    "colors": {
+        "names_de" : ["Rot", "Grün", "Blau", "RGB Weiß", "Weiß (zusatz LED)", "RGB Weiß + Weiß"],
+        "names_en" : ["Red", "Green", "Blue", "RGB White", "White (separate LED)", "RGB White + White"]
+    },
+    "fuses":
+    {
+        "colors_en": ["Gray", "Violet", "Pink", "Tan", "Brown", "Red", "Blue", "Yellow", "Clear", "Green"],
+        "colors_de": ["Grau", "Violett", "Rosa", "Hellbraun", "Braun", "Rot", "Blau", "Gelb", "Transparent", "Grün"],
+        "ratings": [2, 3, 4, 5, 7.5, 10, 15, 20, 25, 30],
+        "voltage_drops": [171, 152, 121, 129, 135, 108, 98, 96, 86, 87]
+    },
+    "light_factors":
+    {
+        "names": ["100%", "50%"],
+        "factors": [1, 0.6]
+    },
+    "systems" : {
+        "names_de" : ["Auf Oberfläche", "Im Elektrorohr", "In wärmegedämten Wänden"],
+        "names_en" : ["On surface", "Within of electro pipes", "Within of thermally isolated wall"]
+    },
+    "wires": {
+        "crosssections" : [0.25, 0.34, 0.5, 0.75, 1, 1.5, 2.5, 4, 6],
+        "awgs" : [23, 22, 20, 18, 17, 15, 13, 11, 9],
+        "max_currents" : [
+            [4.5, 6, 7.5, 12, 15, 19.5, 27, 36, 46],
+            [2.8, 4, 6, 9, 11, 16.5, 23, 30, 38],
+            [2, 3, 5, 7, 9, 15.5, 18.5, 25, 32]
+        ]
+    },
+    "tempcoeff" :{
+        "temps" : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
+        "factors" : [1.22, 1.17, 1.12, 1.06, 1, 0.94, 0.87, 0.79, 0.71, 0.61, 0.5]
+    },
+    "vdrop" :{
+        "names_en" : ["300 mV", "400 mV (recommended)", "500 mV"],
+        "names_de" : ["300 mV", "400 mV (empfohlen)", "500 mV"],
+        "values" : [0.3, 0.4, 0.5]
+    }
+}
