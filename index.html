@@ -99,7 +99,7 @@ select:focus::-ms-value {
   </div>
   <div id="WarningDetails">
     <ul>
-        <li id="L02b"></li>
+        <li id="L02b" style='color:red'></li>
         <li id="L02c"></li>
         <li id="L02d"></li>
         <li id="L02e"></li>
@@ -183,7 +183,7 @@ function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur grobe Schätzung.";
         if(document.getElementById('L01a')) document.getElementById('L01a').innerHTML = "Lesen Sie hier mehr Details";
-        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "<span style='color:red'>Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Kalkulator kann lediglich eine erste Schätzung liefern!</span>";
+        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Kalkulator kann lediglich eine erste Schätzung liefern!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative Grundlagen: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430";
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Zusätzlich einige anderen Vereinfachungen und Annahmen!";
@@ -212,7 +212,7 @@ function LangChanged() {
     } else {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> roughly estimation.";
         if(document.getElementById('L01a')) document.getElementById('L01a').innerHTML = "Read there more details";
-        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "<span style='color:red'>For a specified design of an electrical system, YOU must precisely meet the normative specifications applicable in your country! This calculator can only provide a first estimate!</span>";
+        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "For a specified design of an electrical system, YOU must precisely meet the normative specifications applicable in your country! This calculator can only provide a first estimate!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative bases: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430 (German technical rules)";
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Assumption: cable with PVC insulation; maximum operating temperature 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Additionally some other simplifications and assumptions!";
