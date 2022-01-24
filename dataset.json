@@ -16,7 +16,7 @@
     },
     "fuses":
     {
-        "colors_en": ["Gray", "Violet", "Pink", "Tan", "Brown", "Red", "Blue", "Yellow", "Clear", "Green"],
+        "colors_en": ["gray", "violet", "pink", "tan", "brown", "red", "blue", "yellow", "clear", "green"],
         "colors_de": ["Grau", "Violett", "Rosa", "Hellbraun", "Braun", "Rot", "Blau", "Gelb", "Transparent", "Grün"],
         "ratings": [2, 3, 4, 5, 7.5, 10, 15, 20, 25, 30],
         "voltage_drops": [171, 152, 121, 129, 135, 108, 98, 96, 86, 87]
