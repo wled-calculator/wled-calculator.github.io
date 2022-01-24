@@ -5,10 +5,16 @@
   <title>LED power calculator</title>
   <style>
   @media only screen and (max-device-width: 479px) {
-  a { color: #0000EE; cursor: pointer; text-decoration: underline;}
-  div {padding-bottom: 10px;}
+    a { color: #0000EE; cursor: pointer; text-decoration: underline;}
+    div {padding-bottom: 10px;}
+    br.responsive {
+      display: inline;
+    }
   }
   @media only screen and (min-device-width: 480px) {
+    br.responsive {
+      display: none;
+    }
   a { color: #0000EE; cursor: pointer; text-decoration: underline;}
   span {white-space: nowrap;}
   div {padding-bottom: 10px;}
@@ -119,7 +125,7 @@ select:focus::-ms-value {
               <span><span id="L04">LED strip type:</span>
               <span class="select-wrapper-200">
               <select id="select-leds" onchange="CalcResults();">
-              </select></span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              </select></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<br class="responsive" />
               <span><span id="L05">Color:</span>
               <span class="select-wrapper-200">
               <select id="select-colors" onchange="CalcResults();">
@@ -129,7 +135,7 @@ select:focus::-ms-value {
               <span><span id="L06">Number of LEDs:</span>
               <span class="number-wrapper">
               <input id="input-numberofleds" type="Number" min="1" size="5" onchange="CalcResults();">
-                </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>&nbsp;&nbsp;&nbsp;&nbsp;<br class="responsive" />
                 <span><span id="L07">Brightness:</span>
               <span class="select-wrapper-100">
               <select id="select-brightness" onchange="CalcResults();"></select>
@@ -139,7 +145,7 @@ select:focus::-ms-value {
               <span><span id="L08">Wire length:</span>
               <span class="number-wrapper">
               <input id="input-wirelen" type="Number" min="1" size="5" onchange="CalcResults();">
-                </span>&nbsp;cm</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>&nbsp;cm</span>&nbsp;&nbsp;&nbsp;&nbsp;<br class="responsive" />
               <span><span id="L09">Ambient temperature:</span>
               <span class="select-wrapper-100">
               <select id="select-temp" onchange="CalcResults();"></select>
@@ -163,10 +169,10 @@ select:focus::-ms-value {
           <div>
           <h3 id="L12">Results:</h3>
           <ul>
-            <li><span id="L12a">LED power consumption: </span><span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></span></li>
-            <li><span id="L12b">Recommended minimal wire crosssection: </span><span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</span></li>
-            <li><span id="L12c">Recommended fuse (automotive standart or mini): </span><span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span></li>
-            <li><span id="L12d">Total voltage drop (wire  + fuse): </span><span><b><span id="vdrop_result"></span> V</b></span></li>
+            <li><span id="L12a">LED power consumption: </span><br class="responsive" /><span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></span></li>
+            <li><span id="L12b">Recommended minimal wire crosssection: </span><br class="responsive" /><span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</span></li>
+            <li><span id="L12c">Recommended fuse (automotive standart or mini): </span><br class="responsive" /><span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span></li>
+            <li><span id="L12d">Total voltage drop (wire  + fuse): </span><br class="responsive" /><span><b><span id="vdrop_result"></span> V</b></span></li>
           </ul>
           </div>
       </div>
