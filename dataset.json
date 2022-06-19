@@ -1,14 +1,14 @@
 {
     "leds" :
     {
-        "types": ["WS2812B", "WS2812B-ECO", "SK6812", "APA102"],
-        "voltages": [5, 5, 5, 5],
-        "r_powers": [13, 12, 11, 17.5],
-        "g_powers": [13, 12, 11, 17.5],
-        "b_powers": [13, 7, 11, 17.5],
-        "rgb_powers": [33, 24, 25, 45],
-        "w_powers": [0, 0, 18, 0],
-        "rgbw_powers": [33, 24, 39, 45]
+        "types": ["WS2812B (5V)", "WS2812B-ECO (5V)", "SK6812 (5V)", "APA102 (5V)", "WS2815 (12V)", "WS2815ECO (12V)"],
+        "voltages": [5, 5, 5, 5, 12, 12],
+        "r_powers": [13, 12, 11, 17.5, 25.1, 19.2],
+        "g_powers": [13, 12, 11, 17.5, 25.1, 19.2],
+        "b_powers": [13, 7, 11, 17.5, 25.1, 19],
+        "rgb_powers": [33, 24, 25, 45, 25.1, 19.2],
+        "w_powers": [0, 0, 18, 0, 0, 0],
+        "rgbw_powers": [33, 24, 39, 45, 25.1, 19.2]
     },
     "colors": {
         "names_de" : ["Rot", "Grün", "Blau", "RGB Weiß", "Weiß (zusatz LED)", "RGB Weiß + Weiß"],
