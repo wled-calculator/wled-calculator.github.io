@@ -168,6 +168,15 @@ select:focus::-ms-value {
               </select>
                 </span></span>
           </div>
+          <div>
+              <span><span id="L11">Wire cross sections to use:</span>
+              <span class="select-wrapper-300">
+              <select id="select-wire-cs" onchange="CalcResults();">
+                <option value="wires">EU (in mm2)</option>
+                <option value="wires_us">US (AWG)</option>
+              </select>
+                </span></span>
+          </div>
           <img src="System.jpg" alt="system schematics" style="width:600px;">
           <hr>
           <div>
@@ -289,6 +298,7 @@ function CalcResults() {
     var led_index=parseInt(document.getElementById('select-leds').value);
     var voltage = dataset.leds.voltages[led_index];
     var power150=0;
+    var wire_cstype=parseInt(document.getElementById('select-wire-cs').value);
     var color_index=parseInt(document.getElementById('select-colors').selectedIndex);
     if(color_index==0) power150=dataset.leds.r_powers[led_index];
     if(color_index==1) power150=dataset.leds.g_powers[led_index];
@@ -350,8 +360,8 @@ function CalcResults() {
     var wire_temp_coef = dataset.tempcoeff.factors[amb_temp_index];
     
     // start with the thickest wire (higher index in dataset)
-    var wire_index=dataset.wires.crosssections.length-1;
-    if(fuse_rating>dataset.wires.max_currents[system_index][wire_index]*wire_temp_coef) {
+    var wire_index=dataset[wire_cstype].crosssections.length-1;
+    if(fuse_rating>dataset[wire_cstype].max_currents[system_index][wire_index]*wire_temp_coef) {
         document.getElementById('mm2_result').innerHTML="<span style='color:red'>Too high current</span>";
         document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
         document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
@@ -363,15 +373,15 @@ function CalcResults() {
     }
     // go down all wires crosssections, checking if they are still OK
     for(var i = wire_index-1; i>=0; i--) {
-        if(fuse_rating<=dataset.wires.max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset.wires.crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
+        if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
             wire_index--;
         }
     }
     // now we have lowest wire_index, calculate resulting voltage drop
-    wire_vdrop = 2*current*0.01786*wirelen/dataset.wires.crosssections[wire_index]*(1+0.0039*(70-20))
+    wire_vdrop = 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[wire_index]*(1+0.0039*(70-20))
     
-    document.getElementById('mm2_result').innerHTML=dataset.wires.crosssections[wire_index];
-    document.getElementById('awg_result').innerHTML=dataset.wires.awgs[wire_index];
+    document.getElementById('mm2_result').innerHTML=dataset[wire_cstype].crosssections[wire_index];
+    document.getElementById('awg_result').innerHTML=dataset[wire_cstype].awgs[wire_index];
     
     //resulting total voltage drop
     var total_vdrop=wire_vdrop+fuse_vdrop;
