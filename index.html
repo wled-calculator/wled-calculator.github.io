@@ -302,8 +302,8 @@ function CalcResults() {
     var led_index=parseInt(document.getElementById('select-leds').value);
     var voltage = dataset.leds.voltages[led_index];
     var power150=0;
-    var wire_cstype=parseInt(document.getElementById('select-wire-cs').value);
-    log(wire_cstype);
+    var wire_cstype=parseInt(document.getElementById('select-wire-cs').selectedIndex);
+    debug(wire_cstype);
     var color_index=parseInt(document.getElementById('select-colors').selectedIndex);
     if(color_index==0) power150=dataset.leds.r_powers[led_index];
     if(color_index==1) power150=dataset.leds.g_powers[led_index];
