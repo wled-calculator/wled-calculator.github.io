@@ -53,7 +53,7 @@ body {
 #select-temp {width: 100px;}
 #select-vdrop {width: 300px;}
 #select-systems {width: 300px;}
-#select-wire-cs {width: 300px;}
+#select-wire-cs {width: 200px;}
     
 select, button, input {
   -moz-appearance: none;
@@ -172,7 +172,7 @@ select:focus::-ms-value {
           </div>
           <div>
               <span><span id="L20">Wire cross sections to use:</span>
-              <span class="select-wrapper-300">
+              <span class="select-wrapper-200">
               <select id="select-wire-cs" onchange="CalcResults();">
                 <option value="wires">EU (in mm2)</option>
                 <option value="wires_us">US (AWG)</option>
@@ -303,6 +303,8 @@ function CalcResults() {
     var voltage = dataset.leds.voltages[led_index];
     var power150=0;
     var wire_cstype=parseInt(document.getElementById('select-wire-cs').value);
+    alert(wire_cstype);
+    alert(dataset);
     var color_index=parseInt(document.getElementById('select-colors').selectedIndex);
     if(color_index==0) power150=dataset.leds.r_powers[led_index];
     if(color_index==1) power150=dataset.leds.g_powers[led_index];
