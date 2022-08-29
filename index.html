@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="copyright" content="&copy; 2022 Wladislaw Waag" />
   <title>LED power calculator</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   <style>
@@ -11,9 +12,9 @@
 </head>
 <body>
 <div class="container m-2 p-0">
-  <h3>LED power calculator</h3>
+  <h3 style="font-weight: bold;">LED power calculator</h3>
   
-  <div class="form-floating">
+  <div class="form-floating mb-1">
   <select id="lang" onchange="LangChanged();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
         <option value="0">Deutsch</option>
         <option value="1">English</option>
@@ -24,7 +25,7 @@
   <div class="accordion accordion-flush">
     <div class="accordion-item">
 		<h2 class="accordion-header" id="headingOne">
-		  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 			<span id="L01"><span style="color:red">Attention:</span> estimation only. <span style="color:blue;text-decoration: underline;">Find out here more details</span></span>
 		  </button>
 		</h2>
@@ -117,45 +118,29 @@
 			  
 			 </div>
 			</div>
-          <img src="System.jpg" alt="system schematics" style="width:600px;">
+          <img src="System.jpg" class="img-fluid" alt="system schematics" style="width:400px;">
           <hr>
           <div>
             <h5 id="L12" style="font-weight: bold;">Results:</h5>		  
           <ul>
             <li>
-				<div class="container m-0 p-0">
-			    <div class="row row-cols-auto">
-					<div class="col"><span id="L12a">LED power consumption: </span></div>
-					<div class="col p-0"><span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></span></div>
-				</div>
-				</div>
+				<span id="L12a">LED power consumption: </span>
+				<span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></span>
 			</li>
 			
             <li>
-				<div class="container m-0 p-0">
-			    <div class="row row-cols-auto">
-					<div class="col"><span id="L12b">Recommended minimal wire crosssection: </span></div>
-					<div class="col p-0"><span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</span></div>
-				</div>
-				</div>
+				<span id="L12b">Recommended minimal wire crosssection: </span>
+				<span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</span>
 			</li>
 			
             <li>
-				<div class="container m-0 p-0">
-			    <div class="row row-cols-auto">
-					<div class="col"><span id="L12c">Recommended fuse (automotive standart or mini): </span></div>
-					<div class="col p-0"><span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span></div>
-				</div>
-				</div>
+				<span id="L12c">Recommended fuse (automotive standart or mini): </span>
+				<span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span>
 			</li>
 			
             <li>
-				<div class="container m-0 p-0">
-			    <div class="row row-cols-auto">
-					<div class="col"><span id="L12d">Total voltage drop (wire  + fuse): </span></div>
-					<div class="col p-0"><span><b><span id="vdrop_result"></span> V</b></span></div>
-				</div>
-				</div>
+				<span id="L12d">Total voltage drop (wire  + fuse): </span>
+				<span><b><span id="vdrop_result"></span> V</b></span>
 			</li>
           </ul>
           </div>
@@ -177,7 +162,7 @@
 	<div class="accordion accordion-flush" id="accordionBottom">
 		<div class="accordion-item">
 			<h2 class="accordion-header" id="headingImprint">
-			  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImprint" aria-expanded="true" aria-controls="collapseOne">
+			  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImprint" aria-expanded="true" aria-controls="collapseOne">
 				<span id="L18" style="color:blue;text-decoration: underline;">Impressum</span>
 			  </button>
 			</h2>
@@ -190,7 +175,7 @@
 		
 		<div class="accordion-item">
 			<h2 class="accordion-header" id="headingPrivacy">
-			  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy" aria-expanded="true" aria-controls="collapseOne">
+			  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy" aria-expanded="true" aria-controls="collapseOne">
 				<span id="L19" style="color:blue;text-decoration: underline;">Datenschutzerklärung</span>
 			  </button>
 			</h2>
@@ -207,7 +192,7 @@ var dataset;
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
-        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Kalkulator kann lediglich eine erste Schätzung liefern!";
+        if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Rechner kann lediglich eine erste Schätzung liefern!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative Grundlagen: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430";
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Zusätzlich einige anderen Vereinfachungen und Annahmen!";
@@ -282,9 +267,9 @@ function ShowImprint() {
   
 function ShowDataPrivacy() {
     if(document.getElementById('lang').selectedIndex==0) {
-        document.getElementById('dataprivacy').innerHTML = "<br><h3>Datenschutzerklärung</h3>Der Betreiber dieser Webseite (https://wled-calculator.github.io) sammelt und verarbeitet keinerlei personenbezogenen Daten der Nutzer dierser Webseite. Diese Seite wird jedoch im Rahmen von 'Github Pages' gehostet und betrieben. Es ist möglich und wahrscheinlich, dass Github die personenbezogenen Daten sammelt und verarbeitet. Das betrifft dann auch die Besucher der Webseite wled-installer.github.io. Ich habe aber keinerlei Einfluss darauf. Bitte lesen Sie dazu die Datenschutzerklärung von Github: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Unsere Webseite enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr und keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist immer der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren dabei nicht erkennbar. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechende Verlinkung umgehend entfernen.";
+        document.getElementById('dataprivacy').innerHTML = "<br><h3>Datenschutzerklärung</h3>Der Betreiber dieser Webseite (https://wled-calculator.github.io) sammelt und verarbeitet keinerlei personenbezogenen Daten der Nutzer dierser Webseite. Diese Seite wird jedoch im Rahmen von 'Github Pages' gehostet und betrieben. Es ist möglich und wahrscheinlich, dass Github die personenbezogenen Daten sammelt und verarbeitet. Das betrifft dann auch die Besucher der Webseite wled-calculator.github.io. Ich habe aber keinerlei Einfluss darauf. Bitte lesen Sie dazu die Datenschutzerklärung von Github: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Unsere Webseite enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr und keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist immer der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren dabei nicht erkennbar. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechende Verlinkung umgehend entfernen.";
     } else {
-        document.getElementById('dataprivacy').innerHTML = "<br><h3>Data privacy</h3>The operator of this web page (https://wled-calculator.github.io) does not collect and process any personal data of the users of this website. However, this page is hosted and operated as part of 'Github Pages'. It is possible and probable that Github collects and processes personal data, which then also affects visitors of the wled-installer.github.io web page. But I have no influence on it. Please read the Github privacy statement: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Our website contains links to external websites over which we have no control. We cannot accept any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at that time. If we become aware of any legal violations, we will remove the relevant link immediately.";
+        document.getElementById('dataprivacy').innerHTML = "<br><h3>Data privacy</h3>The operator of this website (https://wled-calculator.github.io) does not collect and process any personal data of the users of this website. However, this page is hosted and operated as part of 'Github Pages'. It is possible and probable that Github collects and processes personal data, which then also affects visitors of the wled-calculator.github.io web page. But I have no influence on it. Please read the Github privacy statement: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Our website contains links to external websites over which we have no control. We cannot accept any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at that time. If we become aware of any legal violations, we will remove the relevant link immediately.";
     }
 }
 
