@@ -2,192 +2,161 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LED power calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   <style>
-  @media only screen and (max-device-width: 479px) {
-    a { color: #0000EE; cursor: pointer; text-decoration: underline;}
-    div {padding-bottom: 10px;}
-    br.responsive {
-      display: inline;
-    }
-    body {
-      background-color: #66CCFF;
-    }
-  }
-  @media only screen and (min-device-width: 480px) {
-    br.responsive {
-      display: none;
-    }
-  a { color: #0000EE; cursor: pointer; text-decoration: underline;}
-  span {white-space: nowrap;}
-  div {padding-bottom: 10px;}
- .select-wrapper-100 {
-    position: relative;
-    width: 100px;
-    white-space: nowrap;
-  }
- .select-wrapper-200 {
-    position: relative;
-    width: 200px;
-    white-space: nowrap;
-  }
- .select-wrapper-300 {
-    position: relative;
-    width: 300px;
-    white-space: nowrap;
-  }
- .button-wrapper {
-   position: relative;
-   width: 200px;
- }
-body {
-  background-color: #66CCFF;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-}
-
-#lang {width: 200px;}
-#select-leds {width: 200px;}
-#select-colors {width: 200px;}
-#select-brightness {width: 100px;}
-#select-temp {width: 100px;}
-#select-vdrop {width: 300px;}
-#select-systems {width: 300px;}
-#select-wire-cs {width: 200px;}
-    
-select, button, input {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #3399FF;
-  border: none;
-  border-radius: 3px;
-  box-shadow: 2px 2px 5px 1px rgba(0,0,0,.3);
-  color: #fff;
-  cursor: pointer;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  height: 40px;
-  outline: none;
-  padding-left: 10px;
-}
-
-button {width: 200px;}
-
-select option {
-  color: #FFF;
-}
-.select-wrapper-100::after, .select-wrapper-200::after, .select-wrapper-300::after {
-  content: "\1F853";
-  font-size: 20px;
-  position: absolute;
-  right: 15px;
-  top: 0px;
-  color: #fff;
-  pointer-events: none;
-}
-
-select::-ms-expand {
-  display: none;
-}
-select:focus::-ms-value {
-  background-color: transparent;
-}
-
-.number-wrapper {
-  position: relative;
-  background-color: transparent;
-  font-size: 20px;
-}
-}
+	a { color: #0000EE; cursor: pointer; text-decoration: underline;}
   </style>
 </head>
 <body>
-  <h2>LED power calculator <span style='color:red'>BETA</span></h2>
-  <div>Language/Sprache:
-  <span class="select-wrapper-200">
-  <select id="lang" onchange="LangChanged();">
+<div class="container m-2 p-0">
+  <h3>LED power calculator</h3>
+  
+  <div class="form-floating">
+  <select id="lang" onchange="LangChanged();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
         <option value="0">Deutsch</option>
         <option value="1">English</option>
-  </select></span></div>
-  <div>
-  <span id="L01"><span style="color:red">Attention:</span> estimation only.</span>
-      </span><a onclick="ShowWarningDetails()"><span id="L01a">Find out more details</span></a>
+  </select>
+  <label for="lang">Language/Sprache:</label>
   </div>
-  <div id="WarningDetails">
-    <ul>
-        <li id="L02b" style='color:red'></li>
-        <li id="L02c"></li>
-        <li id="L02d"></li>
-        <li id="L02e"></li>
-        <li id="L02f"></li>
-    </ul>    
+  
+  <div class="accordion accordion-flush">
+    <div class="accordion-item">
+		<h2 class="accordion-header" id="headingOne">
+		  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			<span id="L01"><span style="color:red">Attention:</span> estimation only. <span style="color:blue;text-decoration: underline;">Find out here more details</span></span>
+		  </button>
+		</h2>
+		<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+		  <div class="accordion-body">
+			<ul>
+				<li id="L02b" style='color:red'></li>
+				<li id="L02c"></li>
+				<li id="L02d"></li>
+				<li id="L02e"></li>
+				<li id="L02f"></li>
+			</ul> 
+		  </div>
+		</div>
+	</div>
   </div>
       <hr>
       <div id="MainContainer">
-          <h3 id="L03">Input fields:</h3>
-          <div>
-              <span><span id="L04">LED strip type:</span>
-              <span class="select-wrapper-200">
-              <select id="select-leds" onchange="CalcResults();">
-              </select></span></span>&nbsp;&nbsp;&nbsp;&nbsp;<br class="responsive" />
-              <span><span id="L05">Color:</span>
-              <span class="select-wrapper-200">
-              <select id="select-colors" onchange="CalcResults();">
-              </select></span></span>
-          </div>
-          <div>
-              <span><span id="L06">Number of LEDs:</span>
-              <span class="number-wrapper">
-              <input id="input-numberofleds" type="Number" min="1" size="5" onchange="CalcResults();">
-                </span></span>&nbsp;&nbsp;&nbsp;&nbsp;<br class="responsive" />
-                <span><span id="L07">Brightness:</span>
-              <span class="select-wrapper-100">
-              <select id="select-brightness" onchange="CalcResults();"></select>
-                </span></span>
-          </div>
-          <div>
-              <span><span id="L08">Wire length:</span>
-              <span class="number-wrapper">
-              <input id="input-wirelen" type="Number" min="1" size="5" onchange="CalcResults();">
-                </span>&nbsp;cm</span>&nbsp;&nbsp;&nbsp;&nbsp;<br class="responsive" />
-              <span><span id="L09">Ambient temperature:</span>
-              <span class="select-wrapper-100">
-              <select id="select-temp" onchange="CalcResults();"></select>
-                </span></span>
-          </div>
-          <div>
-              <span><span id="L10">Max voltage drop:</span>
-              <span class="select-wrapper-300">
-              <select id="select-vdrop" onchange="CalcResults();">
-              </select>
-                </span></span>
-          </div>
-          <div>
-              <span><span id="L11">Wire laying:</span>
-              <span class="select-wrapper-300">
-              <select id="select-systems" onchange="CalcResults();">
-              </select>
-                </span></span>
-          </div>
-          <div>
-              <span><span id="L20">Wire cross sections to use:</span>
-              <span class="select-wrapper-200">
-              <select id="select-wire-cs" onchange="CalcResults();">
-                <option value="wires">EU type (in mm2)</option>
-                <option value="wires_us">US type (AWG)</option>
-              </select>
-                </span></span>
-          </div>
+          <h5 id="L03" style="font-weight: bold;">Input fields:</h5>
+		    <div class="container m-0 p-0">
+			 <div class="row row-cols-auto">
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+					<select id="select-leds" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<label for="select-leds"><span id="L04">LED strip type:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+					<select id="select-colors" onchange="CalcResults();"  class="form-select" aria-label="" style="min-width: 290px; width:auto;">
+					</select>
+					<label for="select-leds"><span id="L05">Color:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div  class="form-floating">
+					<input id="input-numberofleds" type="number" min="1" size="5" data-bind="value:input-numberofleds" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 290px; width:auto;">
+					<label for="input-numberofleds"><span id="L06">Number of LEDs:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+					<select id="select-brightness" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<label for="select-brightness"><span id="L07">Brightness:</span></label>
+				  </div>
+              </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+					<input id="input-wirelen" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 290px; width:auto;">
+					<label for="input-wirelen"><span id="L08">Wire length:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+				  <select id="select-temp" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<label for="select-temp"><span id="L09">Ambient temperature:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+					<select id="select-vdrop" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<label for="select-vdrop"><span id="L10">Max voltage drop:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+				  <select id="select-systems" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;">
+				  </select>
+					<label for="select-systems"><span id="L11">Wire laying:</span></label>
+				  </div>
+			  </div>
+			  
+			  <div class="col mb-1">
+				  <div class="form-floating">
+				  <select id="select-wire-cs" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;">
+					<option value="wires">EU type (in mm2)</option>
+					<option value="wires_us">US type (AWG)</option>
+				  </select>
+					<label for="select-wire-cs"><span id="L20">Wire cross sections to use:</span></label>
+				  </div>
+			  </div>
+			  
+			 </div>
+			</div>
           <img src="System.jpg" alt="system schematics" style="width:600px;">
           <hr>
           <div>
-            <h3 id="L12">Results:</h3> 
+            <h5 id="L12" style="font-weight: bold;">Results:</h5>		  
           <ul>
-            <li><span id="L12a">LED power consumption: </span><br class="responsive" /><span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></span></li>
-            <li><span id="L12b">Recommended minimal wire crosssection: </span><br class="responsive" /><span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</span></li>
-            <li><span id="L12c">Recommended fuse (automotive standart or mini): </span><br class="responsive" /><span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span></li>
-            <li><span id="L12d">Total voltage drop (wire  + fuse): </span><br class="responsive" /><span><b><span id="vdrop_result"></span> V</b></span></li>
+            <li>
+				<div class="container m-0 p-0">
+			    <div class="row row-cols-auto">
+					<div class="col"><span id="L12a">LED power consumption: </span></div>
+					<div class="col p-0"><span><b><span id="power_result"></span> W</b> / <b><span id="current_result"></span> A</b></span></div>
+				</div>
+				</div>
+			</li>
+			
+            <li>
+				<div class="container m-0 p-0">
+			    <div class="row row-cols-auto">
+					<div class="col"><span id="L12b">Recommended minimal wire crosssection: </span></div>
+					<div class="col p-0"><span><b><span id="mm2_result"></span> mm<sup>2</sup></b> (<b>AWG <span id="awg_result"></span></b>)</span></div>
+				</div>
+				</div>
+			</li>
+			
+            <li>
+				<div class="container m-0 p-0">
+			    <div class="row row-cols-auto">
+					<div class="col"><span id="L12c">Recommended fuse (automotive standart or mini): </span></div>
+					<div class="col p-0"><span><b><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span></div>
+				</div>
+				</div>
+			</li>
+			
+            <li>
+				<div class="container m-0 p-0">
+			    <div class="row row-cols-auto">
+					<div class="col"><span id="L12d">Total voltage drop (wire  + fuse): </span></div>
+					<div class="col p-0"><span><b><span id="vdrop_result"></span> V</b></span></div>
+				</div>
+				</div>
+			</li>
           </ul>
           </div>
       </div>
@@ -196,7 +165,7 @@ select:focus::-ms-value {
       </div>
       <hr>
       <div>
-      <h3 id="L14">Nützliche Informationen:</h3>
+      <h5 id="L14" style="font-weight: bold;">Nützliche Informationen:</h5>
         <ul>
           <li><span id="L14a">WLED Wiki:</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
           <li><span id="L14b">DIY WLED boards:</span> <a href="https://github.com/wladwnt/wled">Github</a></li>
@@ -205,17 +174,39 @@ select:focus::-ms-value {
         </ul>
       </div>
      <hr><hr>
-   <a onclick="ShowImprint()"><span id="L18">Impressum</span></a>
-   <div id="imprint"></div>
-   <br>
-   <a onclick="ShowDataPrivacy()"><span id="L19">Datenschutzerklärung</span></a>
-   <div id="dataprivacy"></div>
+	<div class="accordion accordion-flush" id="accordionBottom">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingImprint">
+			  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImprint" aria-expanded="true" aria-controls="collapseOne">
+				<span id="L18" style="color:blue;text-decoration: underline;">Impressum</span>
+			  </button>
+			</h2>
+			<div id="collapseImprint" class="accordion-collapse collapse" aria-labelledby="headingImprint" data-bs-parent="#accordionBottom">
+			  <div class="accordion-body">
+				<div id="imprint"></div>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingPrivacy">
+			  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy" aria-expanded="true" aria-controls="collapseOne">
+				<span id="L19" style="color:blue;text-decoration: underline;">Datenschutzerklärung</span>
+			  </button>
+			</h2>
+			<div id="collapsePrivacy" class="accordion-collapse collapse" aria-labelledby="headingPrivacy" data-bs-parent="#accordionBottom">
+			  <div class="accordion-body">
+				<div id="dataprivacy"></div>
+			  </div>
+			</div>
+		</div>
+	  </div>
+</div>
 <script>
 var dataset;
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
-        if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung!";
-        if(document.getElementById('L01a')) document.getElementById('L01a').innerHTML = "Erfahren Sie hier mehr Details";
+        if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
         if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Kalkulator kann lediglich eine erste Schätzung liefern!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative Grundlagen: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430";
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
@@ -246,13 +237,12 @@ function LangChanged() {
         if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Leitungsberechnung nach EU/US:';
       
     } else {
-        if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> estimation only!";
-        if(document.getElementById('L01a')) document.getElementById('L01a').innerHTML = "Find out more details";
+        if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> estimation only! <span style='color:blue;text-decoration: underline;'>Find out here more details</span>";
         if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "For a specified design of an electrical system, YOU must precisely meet the normative specifications applicable in your country! This calculator can only provide a first estimate!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative bases: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430 (German technical rules)";
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Assumption: cable with PVC insulation; maximum operating temperature 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Additionally some other simplifications and assumptions!";
-        if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Fuse data: based on Littlefuse datasheets";
+        if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Fuse data: based on Littlefuse data sheets";
         
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Input fields:";
         if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED strip type:";
@@ -275,10 +265,11 @@ function LangChanged() {
         if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful web pages:";
         if(document.getElementById('L18')) document.getElementById('L18').innerHTML = 'Imprint';
         if(document.getElementById('L19')) document.getElementById('L19').innerHTML = 'Data privacy';
-        if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Wire cross sections to use:';
-      
+        if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Wire cross sections to use:';     
     }
     LoadDataset();
+	ShowImprint();
+	ShowDataPrivacy();
 }
 
 function ShowImprint() {
@@ -467,18 +458,13 @@ function LoadDataset() {
   xhttp.send(); 
 }
 
-function ShowWarningDetails() {
-document.getElementById('WarningDetails').style.display = "initial";
-document.getElementById('L01a').innerHTML = "";
-}
-
 window.onload = function () {
     document.getElementById('MainContainer').style.display = "none";
     document.getElementById('WaitContainer').style.display = "initial";
-    document.getElementById('WarningDetails').style.display = "none";
     LangChanged();
     LoadDataset();
 };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
