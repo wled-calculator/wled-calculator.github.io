@@ -37,6 +37,7 @@
 				<li id="L02d"></li>
 				<li id="L02e"></li>
 				<li id="L02f"></li>
+				<li id="L02g"></li>
 			</ul> 
 		  </div>
 		</div>
@@ -50,14 +51,14 @@
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-leds" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<select id="select-leds" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
 					<label for="select-leds"><span id="L04">LED strip type:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-colors" onchange="CalcResults();"  class="form-select" aria-label="" style="min-width: 290px; width:auto;">
+					<select id="select-colors" onchange="CalcResults();"  class="form-select" aria-label="" style="min-width: 320px; width:auto;">
 					</select>
 					<label for="select-leds"><span id="L05">Color:</span></label>
 				  </div>
@@ -65,42 +66,42 @@
 			  
 			  <div class="col mb-1">
 				  <div  class="form-floating">
-					<input id="input-numberofleds" type="number" min="1" size="5" data-bind="value:input-numberofleds" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 290px; width:auto;">
+					<input id="input-numberofleds" type="number" min="1" size="5" data-bind="value:input-numberofleds" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
 					<label for="input-numberofleds"><span id="L06">Number of LEDs:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-brightness" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<select id="select-brightness" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
 					<label for="select-brightness"><span id="L07">Brightness:</span></label>
 				  </div>
               </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<input id="input-wirelen" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 290px; width:auto;">
-					<label for="input-wirelen"><span id="L08">Wire length:</span></label>
+					<input id="input-wirelen" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+					<label for="input-wirelen"><span id="L08">Wire length [cm]:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-				  <select id="select-temp" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+				  <select id="select-temp" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
 					<label for="select-temp"><span id="L09">Ambient temperature:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-vdrop" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;"></select>
+					<select id="select-vdrop" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
 					<label for="select-vdrop"><span id="L10">Max voltage drop:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-				  <select id="select-systems" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;">
+				  <select id="select-systems" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;">
 				  </select>
 					<label for="select-systems"><span id="L11">Wire laying:</span></label>
 				  </div>
@@ -108,7 +109,7 @@
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-				  <select id="select-wire-cs" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 290px; width:auto;">
+				  <select id="select-wire-cs" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;">
 					<option value="wires">EU type (in mm2)</option>
 					<option value="wires_us">US type (AWG)</option>
 				  </select>
@@ -142,7 +143,77 @@
 				<span id="L12d">Total voltage drop (wire  + fuse): </span>
 				<span><b style="white-space: nowrap;"><span id="vdrop_result"></span> V</b></span>
 			</li>
+			
+			<li>
+				<span id="L21">Recommended number of power injections: </span>
+				<span><b style="white-space: nowrap;"><span id="numinj_result"></span></b><span id="injstring_result"></span</span>
+			</li>
           </ul>
+		  
+		  
+		  <div class="accordion" id="InjAccordion">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="headingInjDetails">
+				  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
+					<span id="L22" style="color:blue;text-decoration: underline;">Strom Einspeisungen planen:</span>
+				  </button>
+				</h2>
+				<div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingInjDetails" data-bs-parent="#accordionInjDetails">
+				  <div class="accordion-body">
+					<div id="SystemImageInj">
+						<img src="System_2inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">
+					</div>
+					<div class="container m-0 p-0">
+						<div class="row row-cols-auto">
+							<div class="col mb-1" id="wlen1">
+							  <div class="form-floating">
+								<input id="input-wirelen1" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+								<label for="input-wirelen1"><span id="L23_1">Wire length injection L1 [cm]:</span></label>
+							  </div>
+							</div>
+							<div class="col mb-1" id="wlen2">
+							  <div class="form-floating">
+								<input id="input-wirelen2" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+								<label for="input-wirelen2"><span id="L23_2">Wire length injection L2 [cm]:</span></label>
+							  </div>
+							</div>
+							<div class="col mb-1" id="wlen3">
+							  <div class="form-floating">
+								<input id="input-wirelen3" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+								<label for="input-wirelen3"><span id="L23_3">Wire length injection L3 [cm]:</span></label>
+							  </div>
+							</div>
+							<div class="col mb-1" id="wlen4">
+							  <div class="form-floating">
+								<input id="input-wirelen4" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+								<label for="input-wirelen4"><span id="L23_4">Wire length injection L4 [cm]:</span></label>
+							  </div>
+							</div>
+							
+							
+						</div>	
+					</div>					
+					
+					<div>
+						<h6 id="L24" style="font-weight: bold;">Injections results:</h6>
+						<div class="table-responsive">
+						<table id="InjResults" class="table table-bordered">
+						 <thead id="InjResultsHead">
+
+						 </thead>
+						 <tbody id="InjResultsBody">
+							
+						 <tbody>
+						</table>
+						</div>
+						<span id="AttentionToLongWire" style="color:red"></span>
+					</div>
+				  </div>
+				</div>
+			</div>
+		  </div>
+		  
+		  
           </div>
       </div>
       <div id="WaitContainer">
@@ -154,7 +225,7 @@
         <ul>
           <li><span id="L14a">WLED Wiki:</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
           <li><span id="L14b">DIY WLED boards:</span> <a href="https://github.com/wladwnt/wled">Github</a></li>
-          <li><span id="L14c">Professionelle WLED Boards:</span> <a href="https://wled.shop">WLED Shop</a></li>
+          <li><span id="L14c">Professionelle WLED Boards:<a href="https://wled.shop">WLED Shop</a></span></li>
           <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
         </ul>
       </div>
@@ -189,6 +260,7 @@
 </div>
 <script>
 var dataset;
+var MAX_INJ=4;
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
@@ -197,13 +269,14 @@ function LangChanged() {
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Zusätzlich einige anderen Vereinfachungen und Annahmen!";
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Sicherungsdaten: basierend auf Littlefuse Datenblättern";
+		if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Einspeisungen: angenommener max. Strom pro Endeinspeisung 4.5 A; 9 A für Mitteneinspeisung";
         
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Eingaben:";
         if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED Streifen Typ:";
         if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Farbe zum Leuchten:";
         if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Anzahl von LEDs:";
         if(document.getElementById('L07')) document.getElementById('L07').innerHTML = "Helligkeit:";
-        if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Länge der Zuleitung (PSU zum LED):";
+        if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Länge der Zuleitung (PSU zum LED) [cm]:";
         if(document.getElementById('L09')) document.getElementById('L09').innerHTML = "Umgebungstemperatur:";
         if(document.getElementById('L10')) document.getElementById('L10').innerHTML = "Maximaler Spannungseinbruch:";
         if(document.getElementById('L11')) document.getElementById('L11').innerHTML = "Leitungsverlegung:";
@@ -214,12 +287,18 @@ function LangChanged() {
         if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Spannungsabfall gesamt (Zuleitung  + Sicherung): ";
         
         if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED Boards:';
-        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professionelle WLED Boards:';
+        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED Controllers: <a href="https://shop.myhome-control.de">MyHome-Control Shop</a>';
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-basierter WLED Software Installer:';
         if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Nützliche Informationen:";
         if(document.getElementById('L18')) document.getElementById('L18').innerHTML = 'Impressum';
         if(document.getElementById('L19')) document.getElementById('L19').innerHTML = 'Datenschutzerklärung';
         if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Leitungsberechnung nach EU/US:';
+		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = 'Empfohlene Anzahl der Einspeisungen:';
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = 'Hoher Strom: mit Einspeisungen berechnen:';
+		for(var i = 1; i <= MAX_INJ; i++) {
+			if(document.getElementById('L23_'+i.toString())) document.getElementById('L23_'+i.toString()).innerHTML = 'Leitungslänge Einspeisung L'+i.toString()+' [cm]:';
+		}
+		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Ergebnisse (Stromeinspeisungen):';
       
     } else {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> estimation only! <span style='color:blue;text-decoration: underline;'>Find out here more details</span>";
@@ -228,13 +307,14 @@ function LangChanged() {
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Assumption: cable with PVC insulation; maximum operating temperature 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Additionally some other simplifications and assumptions!";
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Fuse data: based on Littlefuse data sheets";
+		if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Power injections: assumed max. current per end injection 4.5 A; 9 A for middle injection";
         
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Input fields:";
         if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED strip type:";
         if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Color to be controlled:";
         if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Number of LEDs:";
         if(document.getElementById('L07')) document.getElementById('L07').innerHTML = "Brightness:";
-        if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Wire length (PSU to LED):";
+        if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Wire length (PSU to LED) [cm]:";
         if(document.getElementById('L09')) document.getElementById('L09').innerHTML = "Ambient temperature:";
         if(document.getElementById('L10')) document.getElementById('L10').innerHTML = "Max allowed voltage drop:";
         if(document.getElementById('L11')) document.getElementById('L11').innerHTML = "Wire laying:";
@@ -245,12 +325,20 @@ function LangChanged() {
         if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Total voltage drop (wire  + fuse): ";
         
         if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED boards:';
-        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED boards:';
+        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://wled.shop">WLED Shop</a>';
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-based WLED software installer:';
         if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful web pages:";
         if(document.getElementById('L18')) document.getElementById('L18').innerHTML = 'Imprint';
         if(document.getElementById('L19')) document.getElementById('L19').innerHTML = 'Data privacy';
-        if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Wire cross sections to use:';     
+        if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Wire cross sections to use:';
+		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = 'Recommended number of injections:';
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = 'High current: calculate with power injections:';
+		
+		for(var i = 1; i <= MAX_INJ; i++) {
+			if(document.getElementById('L23_'+i.toString())) document.getElementById('L23_'+i.toString()).innerHTML = 'Wire lenght injection L'+i.toString()+' [cm]:';
+		}
+		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Injection results:';
+
     }
     LoadDataset();
 	ShowImprint();
@@ -290,6 +378,7 @@ function CalcResults() {
     var brightness_index=parseInt(document.getElementById('select-brightness').value);
     var brightness=dataset.light_factors.factors[brightness_index];
     var numleds=parseInt(document.getElementById('input-numberofleds').value);
+	// wirelen: cm in meter:
     var wirelen=parseInt(document.getElementById('input-wirelen').value)/100;
     var max_vdrop_index=parseInt(document.getElementById('select-vdrop').value);
     var max_vdrop = dataset.vdrop.values[max_vdrop_index];
@@ -310,6 +399,9 @@ function CalcResults() {
         document.getElementById('mm2_result').innerHTML="<span style='color:red'>--</span>";
         document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
         document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
+		document.getElementById('numinj_result').innerHTML="<span style='color:red'>--</span>";
+		document.getElementById('injstring_result').innerHTML="";
+		document.getElementById('InjAccordion').style.display = "none";
         return;
     } else {
         document.getElementById('fuse_result').innerHTML="";
@@ -345,11 +437,15 @@ function CalcResults() {
         document.getElementById('mm2_result').innerHTML="<span style='color:red'>Too high current</span>";
         document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
         document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
+		document.getElementById('numinj_result').innerHTML="<span style='color:red'>--</span>";
+		document.getElementById('injstring_result').innerHTML="";
+		document.getElementById('InjAccordion').style.display = "none";
         return;
     } else {
         document.getElementById('mm2_result').innerHTML="";
         document.getElementById('awg_result').innerHTML="";
         document.getElementById('vdrop_result').innerHTML="";
+		document.getElementById('numinj_result').innerHTML="";
     }
     // go down all wires crosssections, checking if they are still OK
     for(var i = wire_index-1; i>=0; i--) {
@@ -366,6 +462,175 @@ function CalcResults() {
     //resulting total voltage drop
     var total_vdrop=wire_vdrop+fuse_vdrop;
     document.getElementById('vdrop_result').innerHTML=total_vdrop.toFixed(3).toString();
+	
+	//resulting number of injections
+	var INJ_MAX_CURRENT=4.5;
+	var number_injections = 0;
+	if(current<=INJ_MAX_CURRENT) {
+		number_injections=1;
+	} else {
+		if(current<=INJ_MAX_CURRENT*2) {
+			number_injections=2;
+		} else {
+			number_injections=2+Math.ceil((current-INJ_MAX_CURRENT*2)/(INJ_MAX_CURRENT*2));
+		}
+	}
+	document.getElementById('numinj_result').innerHTML=number_injections.toString();
+	
+	// injections: comment
+	var inj_string="";
+	if(number_injections==1) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn der LED Strip":"at the beginning of the LED strip";
+	if(number_injections==2) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn und am Ende der LED Strip":"at the beginning and at the end of the LED strip";
+	if(number_injections==3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und in der Mitte ":"at the beginning, at the end of the LED strip and in the middle";
+	if(number_injections>3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und dazwischen verteilt":"at the beginning, at the end of the LED strip and inbetween distributed";
+	document.getElementById('injstring_result').innerHTML=" ("+inj_string+")";
+	
+	// injections: accordion
+	if(number_injections==1) {
+		document.getElementById('InjAccordion').style.display = "none";
+	} else {
+		document.getElementById('InjAccordion').style.display = "initial";
+	}
+	
+	for(var i = 1; i <= MAX_INJ; i++) {
+		if(i<=number_injections && number_injections>1) {
+			document.getElementById('wlen'+i.toString()).style.display = "initial";
+		} else {
+			document.getElementById('wlen'+i.toString()).style.display = "none";
+		}
+	}
+	
+	inj_arr_max_current=[];
+	inj_arr_max_voltage_drop=[];
+	inj_arr_max_voltage_drop_toohigh=[0]; // init with zero to be able ti use reduce
+	inj_arr_fuse_rating=[];
+	inj_arr_fuse_color=[];
+	inj_arr_wire_length=[];
+	inj_arr_wire_crosssection=[];
+	inj_arr_wire_awg=[];
+	
+	var curr_inj=0;
+	for(var j = 1; j <= number_injections; j++) {
+		// wirelen: cm in meter:
+		wirelen_inj=parseInt(document.getElementById('input-wirelen'+j.toString()).value)/100;
+		// current in injection
+		curr_inj=current/(number_injections==1?1:2+Math.max(number_injections-2,0)*2);
+		if(j>1 && j<number_injections) {
+			curr_inj=curr_inj*2;
+		}
+		min_crossection=2*curr_inj*0.01786*wirelen_inj*(1+0.0039*(70-20))/max_vdrop;
+		console.log(min_crossection);
+		
+		
+		////////////////////////////////////////////////////
+		// we start with the biggest fuse 
+		fuse_index=dataset.fuses.ratings.length-1;
+		// check all lower fuses if they fulfill the requirements
+	    for(var i = fuse_index-1; i>=0; i--) {
+			if(curr_inj/fuse_load_factor<=dataset.fuses.ratings[i]*(1+(25-amb_temp)/650)) {
+				fuse_index--;
+			}
+		}
+		// get rating and color of the fuse
+		fuse_rating=dataset.fuses.ratings[fuse_index];
+		fuse_color= "("+(document.getElementById('lang').selectedIndex==0?("Farbe der Sicherung: "+dataset.fuses.colors_de[fuse_index]):("fuse color: "+dataset.fuses.colors_en[fuse_index]))+")";
+		// calculate voltage drop over the fuse
+		fuse_vdrop=dataset.fuses.voltage_drops[fuse_index]/fuse_rating*curr_inj/1000;		
+		// calculate volatge drop left for the wire
+		wire_vdrop=0;
+		allowed_wire_vdrop = max_vdrop - fuse_vdrop;
+		// calculate minimum crosssection required based on voltage drop
+		q_drop = 2*curr_inj*0.01786*wirelen_inj/allowed_wire_vdrop*(1+0.0039*(70-20));
+		
+		// start with the thickest wire (higher index in dataset)
+		wire_index=dataset[wire_cstype].crosssections.length-1;
+		// go down all wires crosssections, checking if they are still OK
+		for(var i = wire_index-1; i>=0; i--) {
+			if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*curr_inj*0.01786*wirelen_inj/dataset[wire_cstype].crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
+				wire_index--;
+			}
+		}
+		// now we have lowest wire_index, calculate resulting voltage drop
+		wire_vdrop = 2*curr_inj*0.01786*wirelen_inj/dataset[wire_cstype].crosssections[wire_index]*(1+0.0039*(70-20))
+		
+		//resulting total voltage drop
+		total_vdrop=wire_vdrop+fuse_vdrop;
+		if(total_vdrop>max_vdrop) {
+			inj_arr_max_voltage_drop_toohigh[j]=1;
+		} else {
+			inj_arr_max_voltage_drop_toohigh[j]=0;
+		}
+		
+		console.log("INJ="+j.toString()+"; fuse_rating="+fuse_rating.toString()+"; crossec="+dataset[wire_cstype].crosssections[wire_index]+"(AWG "+dataset[wire_cstype].awgs[wire_index]+"); total_vdrop="+total_vdrop.toString());
+		inj_arr_max_current[j]=curr_inj.toFixed(2).toString()+ " A";
+		inj_arr_max_voltage_drop[j]=total_vdrop.toFixed(3).toString()+ " V";
+		inj_arr_fuse_rating[j]=fuse_rating.toString()+" A";
+		inj_arr_fuse_color[j]=document.getElementById('lang').selectedIndex==0?(dataset.fuses.colors_de[fuse_index]):(dataset.fuses.colors_en[fuse_index]);
+		inj_arr_wire_length[j]=document.getElementById('input-wirelen'+j.toString()).value+" cm";
+		inj_arr_wire_crosssection[j]=dataset[wire_cstype].crosssections[wire_index] +" mm<sup>2</sup>";
+		inj_arr_wire_awg[j]=dataset[wire_cstype].awgs[wire_index];
+		////////////////////////////////////////////////////
+		
+	}
+	if(number_injections>1) {
+		document.getElementById('SystemImageInj').innerHTML='<img src="System_'+number_injections.toString()+'inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+	}
+	
+	// build result table
+	lang_index=document.getElementById('lang').selectedIndex;
+	// head
+	InjResultsHead='<tr><th></th><th style="text-align:center;" colspan="'+j.toString()+'">'+(lang_index==0?'Einspeisungen':'Injections')+'</th></tr><tr><th scope="col">Parameter</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsHead=InjResultsHead+'<th style="text-align:center;" scope="col">'+j.toString()+'</th>';
+	}
+	InjResultsHead=InjResultsHead+"<tr>";
+	document.getElementById('InjResultsHead').innerHTML=InjResultsHead;
+	
+	//body
+	InjResultsBody='';
+	
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Länge der Zuleitung':'Wire length')+'</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_wire_length[j]+'</td>';
+	}
+	InjResultsBody=InjResultsBody+'</tr>';
+	
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Leitungsquerschnitt':'Wire cross section')+'</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_wire_crosssection[j]+' (AWG '+inj_arr_wire_awg[j]+')</td>';
+	}
+	InjResultsBody=InjResultsBody+'</tr>';
+	
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Max. Strom':'Max. current')+'</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_max_current[j]+'</td>';
+	}
+	InjResultsBody=InjResultsBody+'</tr>';
+	
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Sicherung Nominalwert':'Fuse rated value')+'</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_fuse_rating[j]+'</td>';
+	}
+	InjResultsBody=InjResultsBody+'</tr>';
+	
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Sicherung Farbe':'Fuse color')+'</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_fuse_color[j]+'</td>';
+	}
+	InjResultsBody=InjResultsBody+'</tr>';
+	
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Max. Spannungsabfall':'Max. voltage drop')+'</th>';
+	for(var j = 1; j <= number_injections; j++) {
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+(inj_arr_max_voltage_drop_toohigh[j]==1?'<span style="color:red">':'')+inj_arr_max_voltage_drop[j]+(inj_arr_max_voltage_drop_toohigh[j]==1?'<sup>(*)</sup></span>':'')+'</td>';
+	}
+	InjResultsBody=InjResultsBody+'</tr>';
+	document.getElementById('InjResultsBody').innerHTML=InjResultsBody;
+	
+	if((inj_arr_max_voltage_drop_toohigh.reduce((partialSum, a) => partialSum + a, 0))>0) {
+		document.getElementById('AttentionToLongWire').innerHTML=(lang_index==0?'Achtung: Spannungsabfall ist zu hoch wegen zu langer Leitung!':'Attention: too high voltage drop because of too long wire!');
+	} else {
+		document.getElementById('AttentionToLongWire').innerHTML='';
+	}
 }
 
 function LoadDataset() {
@@ -433,6 +698,11 @@ function LoadDataset() {
       inp.value=150;
       inp=document.getElementById('input-wirelen');
       inp.value=50;
+	  
+	  for(var i = 1; i <= MAX_INJ; i++) {
+		  inp=document.getElementById('input-wirelen'+i.toString());
+		  inp.value=50*i;
+	  }
       
       document.getElementById('MainContainer').style.display = "initial";
       document.getElementById('WaitContainer').style.display = "none";
@@ -447,7 +717,6 @@ window.onload = function () {
     document.getElementById('MainContainer').style.display = "none";
     document.getElementById('WaitContainer').style.display = "initial";
     LangChanged();
-    LoadDataset();
 };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
