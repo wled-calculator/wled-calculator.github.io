@@ -136,12 +136,12 @@
 			
             <li>
 				<span id="L12c">Recommended fuse (automotive standart or mini): </span>
-				<span><b style="white-space: nowrap;"><span id="fuse_result"></span> A</b> <span id="fuse_result_color"></span></span>
+				<span><b style="white-space: nowrap;"><span id="fuse_result"></span></b> <span id="fuse_result_color"></span></span>
 			</li>
 			
             <li>
 				<span id="L12d">Total voltage drop (wire  + fuse): </span>
-				<span><b style="white-space: nowrap;"><span id="vdrop_result"></span> V</b></span>
+				<span><b style="white-space: nowrap;"><span id="vdrop_result"></span></b></span>
 			</li>
 			
 			<li>
@@ -164,33 +164,13 @@
 						<img src="System_2inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">
 					</div>
 					<div class="container m-0 p-0">
-						<div class="row row-cols-auto">
+						<div class="row row-cols-auto" id="wlenContainer">
 							<div class="col mb-1" id="wlen1">
 							  <div class="form-floating">
 								<input id="input-wirelen1" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
 								<label for="input-wirelen1"><span id="L23_1">Wire length injection L1 [cm]:</span></label>
 							  </div>
-							</div>
-							<div class="col mb-1" id="wlen2">
-							  <div class="form-floating">
-								<input id="input-wirelen2" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
-								<label for="input-wirelen2"><span id="L23_2">Wire length injection L2 [cm]:</span></label>
-							  </div>
-							</div>
-							<div class="col mb-1" id="wlen3">
-							  <div class="form-floating">
-								<input id="input-wirelen3" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
-								<label for="input-wirelen3"><span id="L23_3">Wire length injection L3 [cm]:</span></label>
-							  </div>
-							</div>
-							<div class="col mb-1" id="wlen4">
-							  <div class="form-floating">
-								<input id="input-wirelen4" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
-								<label for="input-wirelen4"><span id="L23_4">Wire length injection L4 [cm]:</span></label>
-							  </div>
-							</div>
-							
-							
+							</div>										
 						</div>	
 					</div>					
 					
@@ -260,7 +240,7 @@
 </div>
 <script>
 var dataset;
-var MAX_INJ=4;
+var MAX_INJ=12;
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
@@ -394,75 +374,87 @@ function CalcResults() {
     
     // we start with the biggest fuse 
     var fuse_index=dataset.fuses.ratings.length-1;
+	var fail=false;
     if(current/fuse_load_factor>dataset.fuses.ratings[fuse_index]*(1+(25-amb_temp)/650)) {
-        document.getElementById('fuse_result').innerHTML="<span style='color:red'>Too high current for an automotive mini fuse!</span>";
-        document.getElementById('mm2_result').innerHTML="<span style='color:red'>--</span>";
+        document.getElementById('fuse_result').innerHTML="<span style='color:red'>"+(document.getElementById('lang').selectedIndex==0?"Zu hoher Strom für eine KFZ mini Sicherung!":"Too high current for one automotive mini fuse!")+"</span>";
+        document.getElementById('fuse_result_color').innerHTML="<span style='color:red'>--</span>"
+		document.getElementById('mm2_result').innerHTML="<span style='color:red'>--</span>";
         document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
         document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
 		document.getElementById('numinj_result').innerHTML="<span style='color:red'>--</span>";
 		document.getElementById('injstring_result').innerHTML="";
 		document.getElementById('InjAccordion').style.display = "none";
-        return;
+        //return;
+		var fail=true;
     } else {
         document.getElementById('fuse_result').innerHTML="";
+		document.getElementById('fuse_result_color').innerHTML="";
         document.getElementById('mm2_result').innerHTML="";
         document.getElementById('awg_result').innerHTML="";
         document.getElementById('vdrop_result').innerHTML="";
     }
     // check all lower fuses if they fulfill the requirements
-   for(var i = fuse_index-1; i>=0; i--) {
-        if(current/fuse_load_factor<=dataset.fuses.ratings[i]*(1+(25-amb_temp)/650)) {
-            fuse_index--;
-        }
-      }
-    // get rating and color of the fuse
-    var fuse_rating=dataset.fuses.ratings[fuse_index];
-    var fuse_color= "("+(document.getElementById('lang').selectedIndex==0?("Farbe der Sicherung: "+dataset.fuses.colors_de[fuse_index]):("fuse color: "+dataset.fuses.colors_en[fuse_index]))+")";
-    // calculate voltage drop over the fuse
-    var fuse_vdrop=dataset.fuses.voltage_drops[fuse_index]/fuse_rating*current/1000;
-    document.getElementById('fuse_result').innerHTML=fuse_rating.toString();
-    document.getElementById('fuse_result_color').innerHTML=fuse_color;
-    
-    // calculate volatge drop left for the wire
-    var wire_vdrop=0;
-    var allowed_wire_vdrop = max_vdrop - fuse_vdrop;
-    // calculate minimum crosssection required based on voltage drop
-    var q_drop = 2*current*0.01786*wirelen/allowed_wire_vdrop*(1+0.0039*(70-20));
-    // get temperature coefficient for wire, will be needed later
-    var wire_temp_coef = dataset.tempcoeff.factors[amb_temp_index];
-    
-    // start with the thickest wire (higher index in dataset)
-    var wire_index=dataset[wire_cstype].crosssections.length-1;
-    if(fuse_rating>dataset[wire_cstype].max_currents[system_index][wire_index]*wire_temp_coef) {
-        document.getElementById('mm2_result').innerHTML="<span style='color:red'>Too high current</span>";
-        document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
-        document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
-		document.getElementById('numinj_result').innerHTML="<span style='color:red'>--</span>";
-		document.getElementById('injstring_result').innerHTML="";
-		document.getElementById('InjAccordion').style.display = "none";
-        return;
-    } else {
-        document.getElementById('mm2_result').innerHTML="";
-        document.getElementById('awg_result').innerHTML="";
-        document.getElementById('vdrop_result').innerHTML="";
-		document.getElementById('numinj_result').innerHTML="";
-    }
-    // go down all wires crosssections, checking if they are still OK
-    for(var i = wire_index-1; i>=0; i--) {
-        if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
-            wire_index--;
-        }
-    }
-    // now we have lowest wire_index, calculate resulting voltage drop
-    wire_vdrop = 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[wire_index]*(1+0.0039*(70-20))
-    
-    document.getElementById('mm2_result').innerHTML=dataset[wire_cstype].crosssections[wire_index];
-    document.getElementById('awg_result').innerHTML=dataset[wire_cstype].awgs[wire_index];
-    
-    //resulting total voltage drop
-    var total_vdrop=wire_vdrop+fuse_vdrop;
-    document.getElementById('vdrop_result').innerHTML=total_vdrop.toFixed(3).toString();
-	
+	var wire_temp_coef = dataset.tempcoeff.factors[amb_temp_index];
+	if(!fail) {
+	   for(var i = fuse_index-1; i>=0; i--) {
+			if(current/fuse_load_factor<=dataset.fuses.ratings[i]*(1+(25-amb_temp)/650)) {
+				fuse_index--;
+			}
+		  }
+		// get rating and color of the fuse
+		var fuse_rating=dataset.fuses.ratings[fuse_index];
+		var fuse_color= "("+(document.getElementById('lang').selectedIndex==0?("Farbe der Sicherung: "+dataset.fuses.colors_de[fuse_index]):("fuse color: "+dataset.fuses.colors_en[fuse_index]))+")";
+		// calculate voltage drop over the fuse
+		var fuse_vdrop=dataset.fuses.voltage_drops[fuse_index]/fuse_rating*current/1000;
+		document.getElementById('fuse_result').innerHTML=fuse_rating.toString()+" A";
+		document.getElementById('fuse_result_color').innerHTML=fuse_color;
+		
+		// calculate volatge drop left for the wire
+		var wire_vdrop=0;
+		var allowed_wire_vdrop = max_vdrop - fuse_vdrop;
+		// calculate minimum crosssection required based on voltage drop
+		var q_drop = 2*current*0.01786*wirelen/allowed_wire_vdrop*(1+0.0039*(70-20));
+		// get temperature coefficient for wire, will be needed later
+		
+		// start with the thickest wire (higher index in dataset)
+		var wire_index=dataset[wire_cstype].crosssections.length-1;
+		if(fuse_rating>dataset[wire_cstype].max_currents[system_index][wire_index]*wire_temp_coef) {
+			document.getElementById('mm2_result').innerHTML="<span style='color:red'>"+(document.getElementById('lang').selectedIndex==0?"Zu hoher Strom für eine Leitung!":"Too high current for one wire!")+"</span>";
+			document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
+			document.getElementById('vdrop_result').innerHTML="<span style='color:red'>--</span>";
+			document.getElementById('numinj_result').innerHTML="<span style='color:red'>--</span>";
+			document.getElementById('injstring_result').innerHTML="";
+			document.getElementById('InjAccordion').style.display = "none";
+			//return;
+			fail=true;
+		} else {
+			document.getElementById('mm2_result').innerHTML="";
+			document.getElementById('awg_result').innerHTML="";
+			document.getElementById('vdrop_result').innerHTML="";
+			document.getElementById('numinj_result').innerHTML="";
+		}
+		// go down all wires crosssections, checking if they are still OK
+		for(var i = wire_index-1; i>=0; i--) {
+			if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
+				wire_index--;
+			}
+		}
+		if(!fail) {
+			// now we have lowest wire_index, calculate resulting voltage drop
+			wire_vdrop = 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[wire_index]*(1+0.0039*(70-20))
+			
+			document.getElementById('mm2_result').innerHTML=dataset[wire_cstype].crosssections[wire_index];
+			document.getElementById('awg_result').innerHTML=dataset[wire_cstype].awgs[wire_index];
+			
+			//resulting total voltage drop
+			var total_vdrop=wire_vdrop+fuse_vdrop;
+			if(total_vdrop<=max_vdrop) {
+				document.getElementById('vdrop_result').innerHTML=total_vdrop.toFixed(3).toString()+" V";
+			} else {
+				document.getElementById('vdrop_result').innerHTML="<span style='color:red'>"+total_vdrop.toFixed(3).toString()+" V"+(document.getElementById('lang').selectedIndex==0?": zu hoch, bitte Leitungslänge reduzieren!":": too high, please reduce wire length!")+"</span>";
+			}
+		}
+	}
 	//resulting number of injections
 	var INJ_MAX_CURRENT=4.5;
 	var number_injections = 0;
@@ -486,17 +478,19 @@ function CalcResults() {
 	document.getElementById('injstring_result').innerHTML=" ("+inj_string+")";
 	
 	// injections: accordion
-	if(number_injections==1) {
+	if(number_injections==1 || number_injections>MAX_INJ) {
 		document.getElementById('InjAccordion').style.display = "none";
 	} else {
 		document.getElementById('InjAccordion').style.display = "initial";
 	}
 	
 	for(var i = 1; i <= MAX_INJ; i++) {
-		if(i<=number_injections && number_injections>1) {
-			document.getElementById('wlen'+i.toString()).style.display = "initial";
-		} else {
-			document.getElementById('wlen'+i.toString()).style.display = "none";
+		if(document.getElementById('wlen'+i.toString())) {
+			if(i<=number_injections && number_injections>1) {
+				document.getElementById('wlen'+i.toString()).style.display = "initial";
+			} else {
+				document.getElementById('wlen'+i.toString()).style.display = "none";
+			}
 		}
 	}
 	
@@ -572,8 +566,11 @@ function CalcResults() {
 		////////////////////////////////////////////////////
 		
 	}
-	if(number_injections>1) {
+	if(number_injections>1 && number_injections<5) {
 		document.getElementById('SystemImageInj').innerHTML='<img src="System_'+number_injections.toString()+'inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+	}
+	if(number_injections>4) {
+		document.getElementById('SystemImageInj').innerHTML='<img src="System_jinj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
 	}
 	
 	// build result table
@@ -700,8 +697,10 @@ function LoadDataset() {
       inp.value=50;
 	  
 	  for(var i = 1; i <= MAX_INJ; i++) {
-		  inp=document.getElementById('input-wirelen'+i.toString());
-		  inp.value=50*i;
+		if(document.getElementById('input-wirelen'+i.toString())) {
+			  inp=document.getElementById('input-wirelen'+i.toString());
+			  inp.value=50*i;
+		  }
 	  }
       
       document.getElementById('MainContainer').style.display = "initial";
@@ -716,6 +715,11 @@ function LoadDataset() {
 window.onload = function () {
     document.getElementById('MainContainer').style.display = "none";
     document.getElementById('WaitContainer').style.display = "initial";
+	var wlenContainer_content='';
+	for(var i = 1; i <= MAX_INJ; i++) {
+		wlenContainer_content=wlenContainer_content+'<div class="col mb-1" id="wlen'+i.toString()+'"><div class="form-floating"><input id="input-wirelen'+i.toString()+'" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;"><label for="input-wirelen'+i.toString()+'"><span id="L23_'+i.toString()+'">Wire length injection L'+i.toString()+' [cm]:</span></label></div></div>';
+	}
+	document.getElementById('wlenContainer').innerHTML = wlenContainer_content;
     LangChanged();
 };
 </script>
