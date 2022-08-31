@@ -502,7 +502,7 @@ function CalcResults() {
 	
 	inj_arr_max_current=[];
 	inj_arr_max_voltage_drop=[];
-	inj_arr_max_voltage_drop_toohigh=[0]; // init with zero to be able ti use reduce
+	inj_arr_max_voltage_drop_toohigh=[0]; // init with zero to be able to use "reduce"
 	inj_arr_fuse_rating=[];
 	inj_arr_fuse_color=[];
 	inj_arr_wire_length=[];
@@ -591,37 +591,37 @@ function CalcResults() {
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Länge der Zuleitung':'Wire length')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_wire_length[j]+'</td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;white-space: nowrap;">'+inj_arr_wire_length[j]+'</td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Leitungsquerschnitt':'Wire cross section')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_wire_crosssection[j]+' (AWG '+inj_arr_wire_awg[j]+')</td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;"><span style="white-space: nowrap;">'+inj_arr_wire_crosssection[j]+'</span> <span style="white-space: nowrap;">(AWG '+inj_arr_wire_awg[j]+')</span></td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Max. Strom':'Max. current')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_max_current[j]+'</td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;white-space: nowrap;">'+inj_arr_max_current[j]+'</td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Sicherung Nominalwert':'Fuse rated value')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_fuse_rating[j]+'</td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;white-space: nowrap;">'+inj_arr_fuse_rating[j]+'</td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Sicherung Farbe':'Fuse color')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+inj_arr_fuse_color[j]+'</td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;white-space: nowrap;">'+inj_arr_fuse_color[j]+'</td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Max. Spannungsabfall':'Max. voltage drop')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;">'+(inj_arr_max_voltage_drop_toohigh[j]==1?'<span style="color:red">':'')+inj_arr_max_voltage_drop[j]+(inj_arr_max_voltage_drop_toohigh[j]==1?'<sup>(*)</sup></span>':'')+'</td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;white-space: nowrap;">'+(inj_arr_max_voltage_drop_toohigh[j]==1?'<span style="color:red">':'')+inj_arr_max_voltage_drop[j]+(inj_arr_max_voltage_drop_toohigh[j]==1?'<sup>(*)</sup></span>':'')+'</td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	document.getElementById('InjResultsBody').innerHTML=InjResultsBody;
