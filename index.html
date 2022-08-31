@@ -595,7 +595,7 @@ function CalcResults() {
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
-	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Leitungsquerschnitt':'Wire cross section')+'</th>';
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Min. Leitungsquerschnitt':'Min. wire cross section')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
 		InjResultsBody=InjResultsBody+'<td style="text-align:center;"><span style="white-space: nowrap;">'+inj_arr_wire_crosssection[j]+'</span> <span style="white-space: nowrap;">(AWG '+inj_arr_wire_awg[j]+')</span></td>';
 	}
