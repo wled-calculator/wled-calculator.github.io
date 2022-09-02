@@ -51,14 +51,14 @@
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-leds" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
+					<select id="select-leds" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 					<label for="select-leds"><span id="L04">LED strip type:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-colors" onchange="CalcResults();"  class="form-select" aria-label="" style="min-width: 320px; width:auto;">
+					<select id="select-colors" onchange="CalcResults();"  class="form-select" aria-label="" style="min-width: 20em; width:auto;">
 					</select>
 					<label for="select-leds"><span id="L05">Color:</span></label>
 				  </div>
@@ -66,42 +66,42 @@
 			  
 			  <div class="col mb-1">
 				  <div  class="form-floating">
-					<input id="input-numberofleds" type="number" min="1" size="5" data-bind="value:input-numberofleds" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+					<input id="input-numberofleds" type="number" min="1" size="5" data-bind="value:input-numberofleds" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 20em; width:auto;">
 					<label for="input-numberofleds"><span id="L06">Number of LEDs:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-brightness" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
+					<select id="select-brightness" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 					<label for="select-brightness"><span id="L07">Brightness:</span></label>
 				  </div>
               </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<input id="input-wirelen" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+					<input id="input-wirelen" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 20em; width:auto;">
 					<label for="input-wirelen"><span id="L08">Wire length [cm]:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-				  <select id="select-temp" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
+				  <select id="select-temp" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 					<label for="select-temp"><span id="L09">Ambient temperature:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-vdrop" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;"></select>
+					<select id="select-vdrop" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 					<label for="select-vdrop"><span id="L10">Max voltage drop:</span></label>
 				  </div>
 			  </div>
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-				  <select id="select-systems" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;">
+				  <select id="select-systems" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;">
 				  </select>
 					<label for="select-systems"><span id="L11">Wire laying:</span></label>
 				  </div>
@@ -109,7 +109,7 @@
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-				  <select id="select-wire-cs" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 320px; width:auto;">
+				  <select id="select-wire-cs" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;">
 					<option value="wires">EU type (in mm2)</option>
 					<option value="wires_us">US type (AWG)</option>
 				  </select>
@@ -167,7 +167,7 @@
 						<div class="row row-cols-auto" id="wlenContainer">
 							<div class="col mb-1" id="wlen1">
 							  <div class="form-floating">
-								<input id="input-wirelen1" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;">
+								<input id="input-wirelen1" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 15em; width:auto;">
 								<label for="input-wirelen1"><span id="L23_1">Wire length injection L1 [cm]:</span></label>
 							  </div>
 							</div>										
@@ -717,7 +717,7 @@ window.onload = function () {
     document.getElementById('WaitContainer').style.display = "initial";
 	var wlenContainer_content='';
 	for(var i = 1; i <= MAX_INJ; i++) {
-		wlenContainer_content=wlenContainer_content+'<div class="col mb-1" id="wlen'+i.toString()+'"><div class="form-floating"><input id="input-wirelen'+i.toString()+'" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 320px; width:auto;"><label for="input-wirelen'+i.toString()+'"><span id="L23_'+i.toString()+'">Wire length injection L'+i.toString()+' [cm]:</span></label></div></div>';
+		wlenContainer_content=wlenContainer_content+'<div class="col mb-1" id="wlen'+i.toString()+'"><div class="form-floating"><input id="input-wirelen'+i.toString()+'" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 17em; width:auto;"><label for="input-wirelen'+i.toString()+'"><span id="L23_'+i.toString()+'">Wire length injection L'+i.toString()+' [cm]:</span></label></div></div>';
 	}
 	document.getElementById('wlenContainer').innerHTML = wlenContainer_content;
     LangChanged();
