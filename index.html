@@ -148,6 +148,10 @@
 				<span id="L21">Recommended number of power injections: </span>
 				<span><b style="white-space: nowrap;"><span id="numinj_result"></span></b><span id="injstring_result"></span</span>
 			</li>
+			<li>
+				<span id="L12e">Power off consumption (standby): </span>
+				<span><b style="white-space: nowrap;"><span id="poweroff_result"></span></b><span id="poweroffstring_result"></span</span>
+			</li>
           </ul>
 		  
 		  
@@ -207,7 +211,7 @@
           <li><span id="L14b">DIY WLED boards:</span> <a href="https://github.com/wladwnt/wled">Github</a></li>
           <li><span id="L14c">Professionelle WLED Boards:<a href="https://wled.shop">WLED Shop</a></span></li>
           <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
-          <li><span id="L14e">Some LED power consumption data taken from: </span> <a href="https://quinled.info/2020/03/12/digital-led-power-usage/">quinled.info</a></li>
+          <!-- <li><span id="L14e">Some LED power consumption data taken from: </span> <a href="https://quinled.info/2020/03/12/digital-led-power-usage/">quinled.info</a></li> -->
         </ul>
       </div>
      <hr><hr>
@@ -266,6 +270,7 @@ function LangChanged() {
         if(document.getElementById('L12b')) document.getElementById('L12b').innerHTML = "Empfohlener minimaler Querschnitt der Zuleitungen: ";
         if(document.getElementById('L12c')) document.getElementById('L12c').innerHTML = "Empfohlene Sicherung (KFZ Standard oder Mini): ";
         if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Spannungsabfall gesamt (Zuleitung  + Sicherung): ";
+	if(document.getElementById('L12e')) document.getElementById('L12e').innerHTML = "Standby Leistungsverbrauch: ";
         
         if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED Boards:';
         if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED Controllers: <a href="https://shop.myhome-control.de">MyHome-Control Shop</a>';
@@ -305,6 +310,7 @@ function LangChanged() {
         if(document.getElementById('L12b')) document.getElementById('L12b').innerHTML = "Recommended minimal wire crosssection: ";
         if(document.getElementById('L12c')) document.getElementById('L12c').innerHTML = "Recommended fuse (automotive standart or mini): ";
         if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Total voltage drop (wire  + fuse): ";
+	if(document.getElementById('L12e')) document.getElementById('L12e').innerHTML = "Power off (standby) consumption: ";
         
         if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED boards:';
         if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://wled.shop">WLED Shop</a>';
@@ -372,8 +378,13 @@ function CalcResults() {
     var power=power150/150*numleds*brightness;
     document.getElementById('power_result').innerHTML=power.toFixed(2).toString();
     
+    var poweroff_power=dataset.leds.power_off[led_index]/150*numleds;
+    document.getElementById('poweroff_result').innerHTML=poweroff_power.toFixed(3).toString();
+    document.getElementById('poweroffstring_result').innerHTML=" W";
+	
     var current=power/voltage;
     document.getElementById('current_result').innerHTML=current.toFixed(2).toString();
+  
     
     // we start with the biggest fuse 
     var fuse_index=dataset.fuses.ratings.length-1;
