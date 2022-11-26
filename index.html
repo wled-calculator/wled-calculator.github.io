@@ -255,7 +255,7 @@ function LangChanged() {
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Zusätzlich einige anderen Vereinfachungen und Annahmen!";
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Sicherungsdaten: basierend auf Littlefuse Datenblättern";
-	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Einspeisungen: angenommener max. Strom pro Endeinspeisung 4.5 A; 9 A für Mitteneinspeisung";
+	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Einspeisungen: angenommener max. Strom pro Endeinspeisung 4.5 A; 9 A für Mitteneinspeisung (bei mini: 3 bzw. 6 A)";
         if(document.getElementById('L02h')) document.getElementById('L02h').innerHTML = "LED Leistungsdaten: eigene Messung  + ca. 10% Margin";
 	    
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Eingaben:";
@@ -296,7 +296,7 @@ function LangChanged() {
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Assumption: cable with PVC insulation; maximum operating temperature 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Additionally some other simplifications and assumptions!";
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Fuse data: based on Littlefuse data sheets";
-	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Power injections: assumed max. current per end injection 4.5 A; 9 A for middle injection";
+	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Power injections: assumed max. current per end injection 4.5 A; 9 A for middle injection (mini strip: 3 A / 6 A)";
         if(document.getElementById('L02h')) document.getElementById('L02h').innerHTML = "LED power data: own measurement + approx. 10% margin";
 	    
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Input fields:";
@@ -473,7 +473,7 @@ function CalcResults() {
 		}
 	}
 	//resulting number of injections
-	var INJ_MAX_CURRENT=4.5;
+	var INJ_MAX_CURRENT=dataset.leds.curr_inj[led_index];
 	var number_injections = 0;
 	if(current<=INJ_MAX_CURRENT) {
 		number_injections=1;
