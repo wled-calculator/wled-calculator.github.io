@@ -11,7 +11,7 @@
         "rgbw_powers":[30.8, 29.5, 36.5, 30.5, 46.6, 23.6, 21.4,    24.4,   32.5],
         "power_off": [0.83, 0.83,  0.72,  0.48, 0.85, 3.5, 3.5,     0.55,   1.7],
         "curr_inj": [4.5,   4.5,   4.5,   3.0,  4.5,  4.5, 4.5,     4.5,    4.5]
-    }
+    },
     "colors": {
         "names_de" : ["Rot", "Grün", "Blau", "RGB Weiß", "Weiß (zusatz LED)", "RGB Weiß + Weiß"],
         "names_en" : ["Red", "Green", "Blue", "RGB White", "White (separate LED)", "RGB White + White"]
