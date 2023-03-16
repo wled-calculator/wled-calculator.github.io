@@ -55,8 +55,8 @@
         "factors" : [1.22, 1.17, 1.12, 1.06, 1, 0.94, 0.87, 0.79, 0.71, 0.61, 0.5]
     },
     "vdrop" :{
-        "names_en" : ["300 mV", "400 mV (recommended)", "500 mV"],
-        "names_de" : ["300 mV", "400 mV (empfohlen)", "500 mV"],
-        "values" : [0.3, 0.4, 0.5]
+        "names_en" : ["300 mV", "400 mV (recommended)", "500 mV", "700 mV"],
+        "names_de" : ["300 mV", "400 mV (empfohlen)", "500 mV", "700 mV"],
+        "values" : [0.3, 0.4, 0.5, 0.7]
     }
 }
