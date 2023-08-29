@@ -1,7 +1,7 @@
 {
     "leds" :
     {
-        "types": ["WS2812B (5V)", "WS2812B ECO (5V)", "WS2813 (5V)", "SK6812 RGBW (5V)", "WS2812 RGB mini (5V, 0,35mmx0,35mm chip, 3 mm width)", "APA102 (5V)", "WS2815 (12V)", "WS2815ECO (12V)", "WS2811 (12V)", "SK6812 RGBW (12V)", "WS2814 RGBW (12V)", "WS2811 (24V)", "WS2814 RGBW (24V)", "COB-RGB WS28xx 12V, 240 each color leds/m (720 leds/m all colors)", "COB-RGB WS28xx 24V, 240 each color leds/m (720 leds/m all colors)"],
+        "types": ["WS2812B (5V)", "WS2812B ECO (5V)", "WS2813 (5V)", "SK6812 RGBW (5V)", "WS2812 RGB mini (5V, 0,35mmx0,35mm chip, 3 mm width)", "APA102 (5V)", "WS2815 (12V)", "WS2815ECO (12V)", "WS2811 (12V)", "SK6812 RGBW (12V, per 3 addressable)", "WS2814 RGBW (12V)", "WS2811 (24V)", "WS2814 RGBW (24V)", "COB-RGB WS28xx 12V, 240 each color leds/m (720 leds/m all colors)", "COB-RGB WS28xx 24V, 240 each color leds/m (720 leds/m all colors)"],
         "voltages": [5,     5,     5,    5,     5,    5,    12,   12,     12,     12,     12,     24,     24,      12,      24],
         "r_powers": [10.7,  10.3,  11.2,    8.5,   10.7, 17.1, 23.6, 21.4,   8.6,    6.0,    11.5,   12.2,   11.2,    2.9,      5.48],
         "g_powers": [10.7,  10.3,  10.9,    8.5,   10.7, 16.7, 23.6, 21,4,   8.6,    5.82,   11.5,   12.2,   11.2,    2.9,      5.48],
