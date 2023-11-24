@@ -45,6 +45,9 @@
 		</div>
 	</div>
   </div>
+  <div>
+  <h4><span id="L25" style="color:blue;text-decoration: underline;"><a href="examples_de.html" target="_blank">Beispiele Berechnungen</a></span></h4>
+  </div>
       <hr>
       <div id="MainContainer">
           <h5 id="L03" style="font-weight: bold;">Input fields:</h5>
@@ -292,6 +295,7 @@ function LangChanged() {
 			if(document.getElementById('L23_'+i.toString())) document.getElementById('L23_'+i.toString()).innerHTML = 'Leitungslänge Einspeisung L'+i.toString()+' [cm]:';
 		}
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Ergebnisse (Stromeinspeisungen):';
+		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '<a href="examples_de.html" target="_blank">Beispiele Berechnungen</a>';
       
     } else {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> estimation only! <span style='color:blue;text-decoration: underline;'>Find out here more details</span>";
@@ -336,6 +340,7 @@ function LangChanged() {
 			if(document.getElementById('L23_'+i.toString())) document.getElementById('L23_'+i.toString()).innerHTML = 'Wire lenght injection L'+i.toString()+' [cm]:';
 		}
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Injection results:';
+		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '<a href="examples_en.html" target="_blank">Examples of calculations</a>';
 
     }
     LoadDataset();

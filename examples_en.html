@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="copyright" content="&copy; 2023 Wladislaw Waag" />
+  <title>LED power calculator: Beispiele</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <style>
+	a { color: #0000EE; cursor: pointer; text-decoration: underline;}
+	img {border: 1px solid #000000;}
+  </style>
+</head>
+<body>
+<div class="container m-2 p-0">
+		<h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> p</span><span style="color:brown">o</span><span style="color:hotpink">w</span><span style="color:lightcoral">e</span><span style="color:red">r</span><span style="color:seagreen"> c</span><span style="color:crimson">a</span><span style="color:darkgreen">l</span><span style="color:darkmagemnta">c</span><span style="color:darkblue">u</span><span style="color:red">l</span><span style="color:darksalmon">a</span><span style="color:lightpink">t</span><span style="color:darkolivengreen">o</span><span style="color:orangered">r</span><span style="color:red">:</span><span style="color:orange"> e</span><span style="color:brown">x</span><span style="color:hotpink">a</span><span style="color:darkblue">m</span><span style="color:lightcoral">p</span><span style="color:lightpink">l</span><span style="color:red">e</span><span style="color:darksalmon">s</span></h3>
+		Here we look at some examples of how to design the power supply for a WLED-controlled addressable LED strip using <a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a> We move from simple examples upwards to more complex examples.
+		<br>
+		<span style="color:red">Attention: These examples are not exhaustive and are only intended to illustrate some ideas that you can use in your setup.</span>
+</div>
+<div class="container m-2 p-0"><a href="examples_de.html"> &gt;&gt; Deutsch / German</a>
+</div>
+<div class="container m-2 p-0">
+		<h4>Content</h4>
+		<ul>
+		<li><a href="#Example1">Example 1: A simple LED strip (3 meters with 30 LEDs/meter)</a></li>
+		<li><a href="#Example2">Example 2: A 75 inch TV should have Ambilight. A total of 152 LEDs of type SK6812RGBNW</a></li>
+		<li> ... more examples will follow ...</li>
+		</ul>
+</div>
+<div class="container m-2 p-0">
+<hr>
+  <div class="container"  id="Example1">
+	<h5>Example 1: A simple LED strip (3 meters with 30 LEDs/meter)</h5>
+	<div class="container m-2 p-0">
+		<b><u>Problem:</u></b> You want to create a simple LED strip with a length of 3 meters and 30 LEDs/meter. The power supply should be placed near the LED strip at a distance of approx. 50 cm. The full brightness of the strip should be used. For cost reasons, you decide on a simple WS2812B 5V type LED strip.
+		<br>
+		<img src="example1_1.jpg" class="img-fluid" alt="Example1: Problem" style="width:400px;">
+		<br>
+		<b><u>Solution:</u></b> With a length of 3 meters and 30 LEDs/m, a total of 90 LEDs have to be controlled. You enter the data into the calculator and get the result:
+		<br>
+		<img src="example1_2_en.jpg" class="img-fluid" alt="Example1: Problem" style="width:800px;">
+		<br>
+		The LED power consumption is a maximum of 3.70 A. In addition, approximately 0.5 A will typically be necessary for the WLED controller. The power supply must therefore be able to deliver at least 4.2 A. Assume that you use a 10 A (50 watt) power supply, which you purchased with reserve for possible later extensions. In this case it is essential to use a fuse. The fuse suggested by the calculator has a nominal value of 5 A. The cable cross section must be at least 0.34 mm<sup>2</sup>. The calculator also says that a power feed point at the beginning of the LED strip is sufficient.
+		<br>
+		The fuse can be integrated in a separate fuse holder:
+		<br>
+		<img src="example1_3.jpg" class="img-fluid" alt="Example1: Solution 1" style="width:400px;">
+		<br>
+		Or if, for example, a controller with a fuse option is used (such as <a href="https://shop.myhome-control.de/ABC-WLED-Controller-V31-ESP8266/HW10002" target="_blank">ABC !WLED Controller Board V31</a>), the fuse can be used directly in the controller.
+		<br>
+		<img src="example1_4.jpg" class="img-fluid" alt="Example1: Solution 2" style="width:400px;">
+		<br>
+		As a supplement, it shows what changes if the distance between the power supply and the LED strip is increased to 1.50 m. In results only the recommended cable cross section changes from 0.34 mm<sup>2</sup> to 1 mm<sup>2</sup>. This change is necessary to keep the voltage drop across the supply line low:
+		<br>
+		<img src="example1_5_en.jpg" class="img-fluid" alt="Example1: Solution 3" style="width:800px;">
+		<br>
+	</div>
+  </div>
+ <hr>
+  <div class="container"  id="Example2">
+		<h5>Example 2: A 75 inch TV should have Ambilight. A total of 152 LEDs of type SK6812RGBNW</h5>
+	<div class="container m-2 p-0">
+		<b><u>Problem:</u></b> You would like to equip your 75 inch TV with Ambilight (for details see, for example, <a href="https://hyperion-project.org/forum/" target="_blank">the Hyperion projekt</a>). You want to control the LEDs with WLED. For better color rendering, choose the LED type SK6812NW. Like many others, you decide for yourself that 30 LEDs/meter are sufficient. You want to place the power supply and the WLED controller under (or behind) the television (approx. 50 cm away from LEDs).
+		<br>
+		<img src="example2_1.jpg" class="img-fluid" alt="Beispiel2: Aufgabe" style="width:400px;">
+		<br>
+		<b><u>Solution:</u></b> A 75 inch TV has a side length of approx. 167cm x 94cm. With 30 LEDs/meter you can place 49 LEDs on a long side and 27 LEDs on a short side. In total there are 49*2+27*2 = 152 LEDs. You enter the data into the calculator, don't forget to select “RGB White + White” and you get the result:
+		<br>
+		<img src="example2_2_en.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 1" style="width:800px;">
+		<br>
+		It is noticeable that the calculator recommends 2 power injections to enable full brightness with “RGB White+White”: at the beginning and at the end of the strip. The results regarding recommended cable cross-section and fuse protection can only be applied to the section between the power supply and the power distribution. To do the design of the power distribution, we click on “High current: calculate with power injections:”. Here we specify that from the power distribution to the LED strip at the beginning and at the end there is only a short piece of wire (20 cm):
+		<br>
+		<img src="example2_3_en.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 2" style="width:800px;">
+		<br>
+		Each power injection can therefore be implemented with 0.34 mm<sup>2</sup> and must be protected with a 5 A fuse. The result is shown in the picture:
+		<br>
+		<img src="example2_4.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 2" style="width:400px;">
+		<br>
+		The fuses can be integrated into the cable or you can use a special fuse board such as <a href="https://shop.myhome-control.de/Sicherungsboard-fuer-WLED-Controller/HW10010" target="_blank">this one</a>.
+	</div>
+  </div>
+</div>
+
+</body>
