@@ -89,11 +89,11 @@
 		<br>
 		<b><u>Solution:</u></b> A total of (5+4)*2 = 18 meters of LED strips must be used. For RGB FCOB strips, the specification 720 LEDs/m means that there are 240 LEDs of each color (R, G, B) per meter. Therefore, as with LED strips with individual LEDs, we count that there are 240 LEDs per meter. At 18 meters there are 18*240 = 4320 "RGB" LEDs. We enter the data into the calculator. At 24 V the voltage drop can be higher, we choose 700 mV:
 		<br>
-		<img src="example3_2.jpg" class="img-fluid" alt="Beispiel3: Lösung 1" style="width:800px;">
+		<img src="example3_2_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 1" style="width:800px;">
 		<br>
 		The result shows that you need a total of almost 18 A and you have to implement 3 power injections: at the beginning, at the end and in the middle. In the middle in this case means in the opposite corner of the room. If you wanted to implement the whole thing with a single power supply, the length of the power lines from the power supply to the respective injection points would be: 2m, 11m, 2m. We use this to calculate the power injections:
 		<br>
-		<img src="example3_3.jpg" class="img-fluid" alt="Beispiel3: Lösung 2" style="width:800px;">
+		<img src="example3_3_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 2" style="width:800px;">
 		<br>
 		It is noticeable that a very thick cable is needed for the middle injection in order to keep the voltage drop small. But it still exceeds 700mV. We therefore decide to place another power supply in the opposite corner of the room. This means that each power supply only supplies half of the LED strip, 4.5 meters in each direction:
 		<br>
@@ -101,11 +101,11 @@
 		<br>
 		This means that each power supply supplies 9 meters of LED strip: 2160 LEDs must be entered into the calculator for each power supply:
 		<br>
-		<img src="example3_5.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
+		<img src="example3_5_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
 		<br>
 		The cable from the power supply to the LED strip must have cross section 1.5 mm<sup>2</sup> and be protected with a 10 A fuse. The calculator suggests two power injections, once at the beginning and once at the end of the LED strip. However, our situation is different in that we supply two pieces of LED strips from one power supply, but the power consumption is the same. Therefore, you can use directly the specifications from the calculator regarding injections:
 		<br>
-		<img src="example3_6.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
+		<img src="example3_6_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
 		<br>
 		So each power injection is implemented short, must be at least 0.34 mm<sup>2</sup> and is protected with a 5 A fuse:
 		<br>
@@ -118,7 +118,7 @@
 		<li>The number of “equivalent” physical RGB LEDs is 4320 as calculated above. Since 24 V strips usually have 6 of them in a logical group, the number of logical LEDs is 720. These can all be controlled by a single WLED controller; in the WLED software you specify the number of LEDs as 720.</li>
 		<li>The power distribution can be done directly on each power supply, then 4 lines go up from each power supply, i.e. +24V and GND for each 4.5 m LED section (1080 LEDs). For each segment you can calculate this using the calculator as follows:</li>
 		</ol>
-		<img src="example3_8.jpg" class="img-fluid" alt="Beispiel3: Lösung 5" style="width:800px;">
+		<img src="example3_8_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 5" style="width:800px;">
 		<br>
 		The whole thing can then be implemented, for example, with a controller, two 24 V relay boards and 4x 5A fuses from <a href="https://shop.myhome-control.de" target="_blank">MyHome-Control</a> as follows:
 		<br>
