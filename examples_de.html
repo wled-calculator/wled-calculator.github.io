@@ -26,7 +26,7 @@
 		<ul>
 		<li><a href="#Example1">Beispiel 1: Ein einfaches LED-Streifen (3 Meter mit 30 LEDs/Meter)</a></li>
 		<li><a href="#Example2">Beispiel 2: Ein 75 Zoll TV soll Ambilight bekommen. Gesamt 152 LEDs vom Typ SK6812RGBNW</a></li>
-		<li> ... mehr Beispiele folgen ...</li>
+		<li><a href="#Example3">Beispiel 3: 18 Meter WS28xx RGB FCOB LED Streifen 24 V (720 LEDs/m), mehrere Netzteile</a></li>
 		</ul>
 </div>
 <div class="container m-2 p-0">
@@ -79,6 +79,52 @@
 		<img src="example2_4.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 2" style="width:400px;">
 		<br>
 		Die Sicherungen können im Kabel integriert werden oder man verwendet ein spezielles Sicherungsboard wie z.B. <a href="https://shop.myhome-control.de/Sicherungsboard-fuer-WLED-Controller/HW10010" target="_blank">dieses</a>.
+	</div>
+  </div>
+  <div class="container"  id="Example3">
+		<h5>Beispiel 3: 18 Meter WS28xx RGB FCOB LED Streifen 24 V (720 LEDs/m), mehrere Netzteile</h5>
+	<div class="container m-2 p-0">
+		<b><u>Aufgabe:</u></b> In einem Zimmer soll unter der Decke RGB FCOB-LED Streifen als ambiente Beleuchtung eingesetzt werden. Die Zimmergröße beträgt 5m x 4m. Es soll ein WS28xx FCOB-LED mit 720 LEDs/m eingesetzt werden. Netzteil muss im Zimmer unten, also im Abstand von ca. 2 m zum LED Streifen platziert werden.
+		<br>
+		<img src="example3_1.jpg" class="img-fluid" alt="Beispiel3: Aufgabe" style="width:400px;">
+		<br>
+		<b><u>Lösung:</u></b> Es müssen gesamt (5+4)*2 = 18 Meter LED Streifen verlegt werden. Bei RGB FCOB Streifen bei der Angabe 720 LEDs/m wird gemeint, dass pro Meter 240 LEDs jeder Farbe (R,G,B) vorhanden sind. Daher zählen wir das wie bei LED Strips mit einzelnen LEDs, dass es 240 LEDs pro Meter sind. Bei 18 Meter ergeben sich 18*240 = 4320 "RGB" LEDs. Wir geben die Daten in den Rechner ein. Bei 24 V darf der Spannungsabfall höher sein, wir wählen 700 mV:
+		<br>
+		<img src="example3_2.jpg" class="img-fluid" alt="Beispiel3: Lösung 1" style="width:800px;">
+		<br>
+		Das Ergebnis zeigt, dass man gesamt knapp 18 A braucht und man 3 Stromeinspeisungen realisieren muss: am Anfang, am Ende und in der Mitte. In der Mitte bedeutet in diesem Fall in der gegenüber liegender Ecke des Raums. Würde man das ganze mit einem Netzteil realisieren wollen, würde die Länge der Stromleitungen vom Netzteil zu jeweiliger Einspeisestelle betragen: 2m, 11m, 2m.  Wir berechnen damit die Stromeinspeisungen:
+		<br>
+		<img src="example3_3.jpg" class="img-fluid" alt="Beispiel3: Lösung 2" style="width:800px;">
+		<br>
+		Dabei fällt auf, dass für die Mitteleinspeisung ein sehr dickes Kabel gebraucht wird, um den Spannungsabfall klein zu halten und man trotzdem 700mV überschreitet. Wir entscheiden deswegen in der Gegenüberliegender Ecker des Raumes ein weiteres Netzteil zu platzieren. Somit versorgt jedes Netzteil nur die jeweilige Hälfte des LED Streifens, dabei jeweils 4,5 Meter davon in jede Richtung:
+		<br>
+		<img src="example3_4.jpg" class="img-fluid" alt="Beispiel3: Lösung 3" style="width:400px;">
+		<br>
+		Somit versorgt jedes Netzteil 9 Meter LED Streifen, also pro Netzteil müssen in dem Rechner 2160 LEDs eingegeben werden:
+		<br>
+		<img src="example3_5.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
+		<br>
+		Die Leitung vom Netzteil zu LED Streifen muss also 1,5 mm<sup>2</sup> sein und wird mit 10 A Sicherung abgesichert. Der Rechner schlägt zwei Stromeinspeisungen vor, einmal am Anfang und einmal am Ende des LED Streifens. Wir haben jedoch es anders, dass wir von einem Netzteil zwei Stückchen LED Streifen versorgen, was aber vom Stromverbrauch das gleiche ist. Daher kann man die Vorgaben aus dem Rechner bzgl. Einspeisungen übernehmen:
+		<br>
+		<img src="example3_6.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
+		<br>
+		Also jede Einspeisung wird kurz implementiert, muss mindestens 0,34 mm<sup>2</sup> sein und wird mit 5 A Sicherung abgesichert:
+		<br>
+		<img src="example3_7.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:400px;">
+		<br>
+		Noch vier Themen müssen angesprochen werden:
+		<ol>
+		<li>An roten Punkten muss die 24 V Leitung am LED Streifen durchgetrennt sein. Damit wird sichergestellt, dass kein Strom aus einem Netzteil in das andere Netzteil fliesen kann um den störungsfreien und sicheren Betrieb der Netzteile zu gewährleisten.</li>
+		<li>Der Standby Stromverbrauch liegt gesamt bei ca. 10 Watt (siehe Ergebnisse des Rechners). Daher sollte man Relais einsetzen um Strom zu sparen und die Umwelt zu schonen.</li>
+		<li>Die Anzahl der „äquivalenten“ physikalischen RGB LEDs beträgt wie oben berechnet 4320 Stück. Da bei 24V Streifen meistens 6 davon in einer logischen Gruppe ist, beträgt die Anzahl der logischen LEDs 720 Stück. Diese alle können von einem Controller angesteuert werden, man gibt in WLED-Software die Anzahl der LEDs als 720 an.</li>
+		<li>Die Stromverteilung kann man direkt an jedem Netzteil machen, dann gehen von jedem Netzteil 4 Leitungen nach oben, also jeweils +24V und GND für jedem 4,5 m LED-Abschnitt (1080 LEDs). Für jeden Segment kann man das mit dem Rechner wie folgt berechnen:</li>
+		</ol>
+		<img src="example3_8.jpg" class="img-fluid" alt="Beispiel3: Lösung 5" style="width:800px;">
+		<br>
+		Das Ganze kann man dann z.B. mit einem Controller, zwei 24 V Relais Boards und 4x 5A Sicherungen von <a href="https://shop.myhome-control.de" target="_blank">MyHome-Control</a> realisieren:
+		<br>
+		<img src="example3_9.jpg" class="img-fluid" alt="Beispiel3: Lösung " style="width:400px;">
+		<br>
 	</div>
   </div>
 </div>
