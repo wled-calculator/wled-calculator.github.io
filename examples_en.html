@@ -24,7 +24,7 @@
 		<h4>Content</h4>
 		<ul>
 		<li><a href="#Example1">Example 1: A simple LED strip (3 meters with 30 LEDs/meter)</a></li>
-		<li><a href="#Example2">Example 2: A 75 inch TV should get Ambilight. 152 LEDs in total, type SK6812RGBNW</a></li>
+		<li><a href="#Example2">Example 2: A 75 inch TV should have Ambilight. A total of 152 LEDs of type SK6812RGBNW</a></li>
 		<li><a href="#Example3">Example 3: 18 meter WS28xx RGB FCOB LED strip 24 V (720 LEDs/m), two PSU</a></li>
 		</ul>
 </div>
@@ -41,7 +41,7 @@
 		<br>
 		<img src="example1_2_en.jpg" class="img-fluid" alt="Example1: Problem" style="width:800px;">
 		<br>
-		The LED power consumption is a maximum of 3.70 A. In addition, approximately 0.5 A will typically be necessary for the WLED controller. The power supply must therefore be able to deliver at least 4.2 A. Assume that you use a 10 A (50 watt) power supply, which you purchased with reserve for possible later extensions. In this case it is essential to use a fuse. The fuse suggested by the calculator has a nominal value of 5 A. The cable cross section must be at least 0.34 mm<sup>2</sup>. The calculator also says that a single power injection at the beginning of the LED strip is sufficient.
+		The LED power consumption is a maximum of 3.70 A. In addition, approximately 0.5 A will typically be necessary for the WLED controller. The power supply must therefore be able to deliver at least 4.2 A. Assume that you use a 10 A (50 watt) power supply, which you purchased with reserve for possible later extensions. In this case it is essential to use a fuse. The fuse suggested by the calculator has a nominal value of 5 A. The cable cross section must be at least 0.34 mm<sup>2</sup>. The calculator also says that a power feed point at the beginning of the LED strip is sufficient.
 		<br>
 		The fuse can be integrated in a separate fuse holder:
 		<br>
@@ -51,7 +51,7 @@
 		<br>
 		<img src="example1_4.jpg" class="img-fluid" alt="Example1: Solution 2" style="width:400px;">
 		<br>
-		As an addition, in the following it is shown what would change if the distance between the power supply and the LED strip would be increased to 1.50 m. In results only the recommended cable cross section changes from 0.34 mm<sup>2</sup> to 1 mm<sup>2</sup>. This change is necessary to keep the voltage drop across the supply line low:
+		As a supplement, it shows what changes if the distance between the power supply and the LED strip is increased to 1.50 m. In results only the recommended cable cross section changes from 0.34 mm<sup>2</sup> to 1 mm<sup>2</sup>. This change is necessary to keep the voltage drop across the supply line low:
 		<br>
 		<img src="example1_5_en.jpg" class="img-fluid" alt="Example1: Solution 3" style="width:800px;">
 		<br>
@@ -59,23 +59,23 @@
   </div>
  <hr>
   <div class="container"  id="Example2">
-		<h5>Example 2: A 75 inch TV should get Ambilight. 152 LEDs in total, type SK6812RGBNW</h5>
+		<h5>Example 2: A 75 inch TV should have Ambilight. A total of 152 LEDs of type SK6812RGBNW</h5>
 	<div class="container m-2 p-0">
-		<b><u>Problem:</u></b> You would like to equip your 75 inch TV with Ambilight (for details see, for example, <a href="https://hyperion-project.org/forum/" target="_blank">the Hyperion projekt</a>). You want to control the LEDs with WLED. For more natural color representation, you choose the LED type SK6812NW taht has separate white LED. Like many others, you decide for yourself that 30 LEDs/meter are sufficient. You want to place the power supply and the WLED controller under (or behind) the TV (approx. 50 cm away from LEDs).
+		<b><u>Problem:</u></b> You would like to equip your 75 inch TV with Ambilight (for details see, for example, <a href="https://hyperion-project.org/forum/" target="_blank">the Hyperion projekt</a>). You want to control the LEDs with WLED. For better color rendering, choose the LED type SK6812NW. Like many others, you decide for yourself that 30 LEDs/meter are sufficient. You want to place the power supply and the WLED controller under (or behind) the television (approx. 50 cm away from LEDs).
 		<br>
-		<img src="example2_1.jpg" class="img-fluid" alt="Example 2: Problem" style="width:400px;">
+		<img src="example2_1.jpg" class="img-fluid" alt="Beispiel2: Aufgabe" style="width:400px;">
 		<br>
-		<b><u>Solution:</u></b> A 75 inch TV has a side length of approx. 167cm x 94cm. With 30 LEDs/meter you can place 49 LEDs on a long side and 27 LEDs on a short side. In total there are 49*2+27*2 = 152 LEDs. You enter the data into the calculator, don't forget to select “RGB White + White” and you get the results:
+		<b><u>Solution:</u></b> A 75 inch TV has a side length of approx. 167cm x 94cm. With 30 LEDs/meter you can place 49 LEDs on a long side and 27 LEDs on a short side. In total there are 49*2+27*2 = 152 LEDs. You enter the data into the calculator, don't forget to select “RGB White + White” and you get the result:
 		<br>
-		<img src="example2_2_en.jpg" class="img-fluid" alt="Example 2: Solution 1" style="width:800px;">
+		<img src="example2_2_en.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 1" style="width:800px;">
 		<br>
-		It is noticeable that the calculator recommends 2 power injections to enable full brightness with “RGB White+White”: at the beginning and at the end of the strip. The results regarding recommended cable cross-section and fuse protection can only be applied to the wires between the power supply and the power distribution. To do the design of the power distribution, we click on “High current: calculate with power injections:”. Here we specify that from the power distribution to the LED strip at the beginning and at the end there is only a short piece of wire (20 cm):
+		It is noticeable that the calculator recommends 2 power injections to enable full brightness with “RGB White+White”: at the beginning and at the end of the strip. The results regarding recommended cable cross-section and fuse protection can only be applied to the section between the power supply and the power distribution. To do the design of the power distribution, we click on “High current: calculate with power injections:”. Here we specify that from the power distribution to the LED strip at the beginning and at the end there is only a short piece of wire (20 cm):
 		<br>
-		<img src="example2_3_en.jpg" class="img-fluid" alt="Example 2: Solution 2" style="width:800px;">
+		<img src="example2_3_en.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 2" style="width:800px;">
 		<br>
-		Each power injection can therefore be implemented with 0.34 mm<sup>2</sup> wire and must be protected with a 5 A fuse. The result is shown in the picture:
+		Each power injection can therefore be implemented with 0.34 mm<sup>2</sup> and must be protected with a 5 A fuse. The result is shown in the picture:
 		<br>
-		<img src="example2_4.jpg" class="img-fluid" alt="Example 2: Solution 2" style="width:400px;">
+		<img src="example2_4.jpg" class="img-fluid" alt="Beispiel2: Ergebnis 2" style="width:400px;">
 		<br>
 		The fuses can be integrated into the cable or you can use a special fuse board such as <a href="https://shop.myhome-control.de/Sicherungsboard-fuer-WLED-Controller/HW10010" target="_blank">this one</a>.
 	</div>
@@ -85,31 +85,31 @@
 	<div class="container m-2 p-0">
 		<b><u>Problem:</u></b> In a room, RGB FCOB LED strips should be used under the ceiling as ambient lighting. The room size is 5m x 4m. A WS28xx FCOB-LED with 720 LEDs/m should be used. The power supply must be placed in the room just a little above the floor, i.e. at a distance of approx. 2 m from the LED strip.
 		<br>
-		<img src="example3_1.jpg" class="img-fluid" alt="Example 3: Problem" style="width:400px;">
+		<img src="example3_1.jpg" class="img-fluid" alt="Beispiel3: Aufgabe" style="width:400px;">
 		<br>
-		<b><u>Solution:</u></b> A total of (5m+4m)*2 = 18 meters of LED strips must be used. For RGB FCOB strips, the specification 720 LEDs/m means that there are 240 LEDs of each color (R, G, B) per meter. Therefore, as with LED strips with individual LEDs, we count that there are 240 LEDs per meter. At 18 meters there are 18*240 = 4320 "RGB" LEDs. We enter the data into the calculator. At 24 V the voltage drop can be higher, we choose 700 mV:
+		<b><u>Solution:</u></b> A total of (5+4)*2 = 18 meters of LED strips must be used. For RGB FCOB strips, the specification 720 LEDs/m means that there are 240 LEDs of each color (R, G, B) per meter. Therefore, as with LED strips with individual LEDs, we count that there are 240 LEDs per meter. At 18 meters there are 18*240 = 4320 "RGB" LEDs. We enter the data into the calculator. At 24 V the voltage drop can be higher, we choose 700 mV:
 		<br>
-		<img src="example3_2_en.jpg" class="img-fluid" alt="Example 3: Solution 1" style="width:800px;">
+		<img src="example3_2_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 1" style="width:800px;">
 		<br>
-		The result shows that you need a total of almost 18 A and you have to implement 3 power injections: at the beginning, at the end and in the middle of the strip. In the middle in this case means in the opposite corner of the room. If you wanted to implement the whole thing with a single power supply, the length of the power lines from the power supply to the respective injection points would be: 2m, 11m, 2m. We use them to calculate the power injections:
+		The result shows that you need a total of almost 18 A and you have to implement 3 power injections: at the beginning, at the end and in the middle. In the middle in this case means in the opposite corner of the room. If you wanted to implement the whole thing with a single power supply, the length of the power lines from the power supply to the respective injection points would be: 2m, 11m, 2m. We use this to calculate the power injections:
 		<br>
-		<img src="example3_3_en.jpg" class="img-fluid" alt="Example 3: Solution 2" style="width:800px;">
+		<img src="example3_3_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 2" style="width:800px;">
 		<br>
-		It is noticeable that a very thick cable is needed for the middle injection in order to keep the voltage drop small. But the voltage drop still exceeds 700mV. We therefore decide to place another power supply in the opposite corner of the room. This means that each power supply only supplies half of the LED strip, 4.5 meters in each direction:
+		It is noticeable that a very thick cable is needed for the middle injection in order to keep the voltage drop small. But it still exceeds 700mV. We therefore decide to place another power supply in the opposite corner of the room. This means that each power supply only supplies half of the LED strip, 4.5 meters in each direction:
 		<br>
-		<img src="example3_4.jpg" class="img-fluid" alt="Example 3: Solution 3" style="width:400px;">
+		<img src="example3_4.jpg" class="img-fluid" alt="Beispiel3: Lösung 3" style="width:400px;">
 		<br>
 		This means that each power supply supplies 9 meters of LED strip: 2160 LEDs must be entered into the calculator for each power supply:
 		<br>
-		<img src="example3_5_en.jpg" class="img-fluid" alt="Example 3: Solution 4" style="width:800px;">
+		<img src="example3_5_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
 		<br>
 		The cable from the power supply to the LED strip must have cross section 1.5 mm<sup>2</sup> and be protected with a 10 A fuse. The calculator suggests two power injections, once at the beginning and once at the end of the LED strip. However, our situation is different in that we supply two pieces of LED strips from one power supply, but the power consumption is the same. Therefore, you can use directly the specifications from the calculator regarding injections:
 		<br>
-		<img src="example3_6_en.jpg" class="img-fluid" alt="Example 3: Solution 4" style="width:800px;">
+		<img src="example3_6_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:800px;">
 		<br>
 		So each power injection is implemented short, must be at least 0.34 mm<sup>2</sup> and is protected with a 5 A fuse:
 		<br>
-		<img src="example3_7.jpg" class="img-fluid" alt="Example 3: Solution 4" style="width:400px;">
+		<img src="example3_7.jpg" class="img-fluid" alt="Beispiel3: Lösung 4" style="width:400px;">
 		<br>
 		Four issues can be additionally discussed:
 		<ol>
@@ -118,14 +118,53 @@
 		<li>The number of “equivalent” physical RGB LEDs is 4320 as calculated above. Since 24 V strips usually have 6 of them in a logical group, the number of logical LEDs is 720. These can all be controlled by a single WLED controller; in the WLED software you specify the number of LEDs as 720.</li>
 		<li>The power distribution can be done directly on each power supply, then 4 lines go up from each power supply, i.e. +24V and GND for each 4.5 m LED section (1080 LEDs). For each segment you can calculate this using the calculator as follows:</li>
 		</ol>
-		<img src="example3_8_en.jpg" class="img-fluid" alt="Example 3: Solution 5" style="width:800px;">
+		<img src="example3_8_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 5" style="width:800px;">
 		<br>
 		The whole thing can then be implemented, for example, with a controller, two 24 V relay boards and 4x 5A fuses from <a href="https://shop.myhome-control.de" target="_blank">MyHome-Control</a> as follows:
 		<br>
-		<img src="example3_9.jpg" class="img-fluid" alt="Example 3: Solution 6" style="width:400px;">
+		<img src="example3_9.jpg" class="img-fluid" alt="Beispiel3: Lösung 6" style="width:400px;">
 		<br>
 	</div>
   </div>
 </div>
-
+<div class="container m-2 p-0">
+<h5 id="L14" style="font-weight: bold;">Nützliche Informationen:</h5>
+        <ul>
+          <li><span id="L14a">WLED Wiki:</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
+	      <li><span id="L14f">WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a></span></li>
+          <li><span id="L14b">DIY WLED boards:</span> <a href="https://github.com/wladwnt/wled">Github</a></li>
+          <li><span id="L14c">Professional WLED controllers: <a href="https://wled.shop">WLED Shop</a></span></li>
+          <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
+        </ul>
+      </div>
+</div>
+<div class="container m-2 p-0">
+	<div class="accordion accordion-flush" id="accordionBottom">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingImprint">
+			  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseImprint" aria-expanded="true" aria-controls="collapseOne">
+				<span id="L18" style="color:blue;text-decoration: underline;">Legal notice</span>
+			  </button>
+			</h2>
+			<div id="collapseImprint" class="accordion-collapse collapse" aria-labelledby="headingImprint" data-bs-parent="#accordionBottom">
+			  <div class="accordion-body">
+				<div id="imprint"><br><h3>Legal notice</h3>Information according to § 5 TMG:<br>Responsible: Wladislaw Waag<br>Address: Wasserburger Landstr. 29, 81825 Munich, Germany<br>Contact: +49 176 47 11 5206, info@myhome-control.de<br><br>EU dispute settlement: The European Commission provides a platform for online dispute resolution (ODR): <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Consumer dispute settlement / universal arbitration board: We are neither willing nor obliged to participate in dispute settlement proceedings before a consumer arbitration board.</div>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingPrivacy">
+			  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy" aria-expanded="true" aria-controls="collapseOne">
+				<span id="L19" style="color:blue;text-decoration: underline;">Data privacy</span>
+			  </button>
+			</h2>
+			<div id="collapsePrivacy" class="accordion-collapse collapse" aria-labelledby="headingPrivacy" data-bs-parent="#accordionBottom">
+			  <div class="accordion-body">
+				<div id="dataprivacy"><br><h3>Data privacy</h3>The operator of this website (https://wled-calculator.github.io) does not collect and process any personal data of the users of this website. However, this page is hosted and operated as part of 'Github Pages'. It is possible and probable that Github collects and processes personal data, which then also affects visitors of the wled-calculator.github.io web page. But I have no influence on it. Please read the Github privacy statement: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Our website contains links to external websites over which we have no control. We cannot accept any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at that time. If we become aware of any legal violations, we will remove the relevant link immediately.</div>
+			  </div>
+			</div>
+		</div>
+	  </div>
+	</div>  
 </body>
