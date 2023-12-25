@@ -116,7 +116,7 @@
 		<ol>
 		<li>An roten Punkten muss die 24 V Leitung am LED Streifen durchgetrennt sein. Damit wird sichergestellt, dass kein Strom aus einem Netzteil in das andere Netzteil fliesen kann um den störungsfreien und sicheren Betrieb der Netzteile zu gewährleisten.</li>
 		<li>Der Standby Stromverbrauch liegt gesamt bei ca. 10 Watt (siehe Ergebnisse des Rechners). Daher sollte man Relais einsetzen um Strom zu sparen und die Umwelt zu schonen.</li>
-		<li>Die Anzahl der „äquivalenten“ physikalischen RGB LEDs beträgt wie oben berechnet 4320 Stück. Da bei 24V Streifen meistens 6 davon in einer logischen Gruppe ist, beträgt die Anzahl der logischen LEDs 720 Stück. Diese alle können von einem Controller angesteuert werden, man gibt in WLED-Software die Anzahl der LEDs als 720 an.</li>
+		<li>Die Anzahl der „äquivalenten“ physikalischen RGB LEDs beträgt wie oben berechnet 4320 Stück. Da bei 24V Streifen meistens 12 davon in einer logischen Gruppe ist (das sehen Sie an der Anzahl der Trennstellen im Streifen pro Meter), beträgt die Anzahl der logischen LEDs 360 Stück. Diese alle können von einem Controller angesteuert werden, man gibt in WLED-Software die Anzahl der LEDs als 360 an.</li>
 		<li>Die Stromverteilung kann man direkt an jedem Netzteil machen, dann gehen von jedem Netzteil 4 Leitungen nach oben, also jeweils +24V und GND für jedem 4,5 m LED-Abschnitt (1080 LEDs). Für jeden Segment kann man das mit dem Rechner wie folgt berechnen:</li>
 		</ol>
 		<img src="example3_8.jpg" class="img-fluid" alt="Beispiel3: Lösung 5" style="width:800px;">
