@@ -40,6 +40,7 @@
 				<li id="L02g"></li>
 				<li id="L02h"></li>
 				<li id="L02i"></li>
+				<li id="L02j"></li>
 			</ul> 
 		  </div>
 		</div>
@@ -262,12 +263,13 @@ function LangChanged() {
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Sicherungsdaten: basierend auf Littlefuse Datenblättern";
 	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Einspeisungen: angenommener max. Strom pro Endeinspeisung 4.5 A; 9 A für Mitteneinspeisung (bei mini: 3 bzw. 6 A)";
         if(document.getElementById('L02h')) document.getElementById('L02h').innerHTML = "LED Leistungsdaten: eigene Messung  + ca. 10% Margin";
-	if(document.getElementById('L02i')) document.getElementById('L02i').innerHTML = "Einzugebende Anzahl von LEDS ist immer die Anzahl der physikalischen LEDs (auch wenn Gruppen von 3 oder 6 physikalischen LEDs bei 12V/24V-Streifen als eine einzelne LED angesteuert werden)";
+	if(document.getElementById('L02i')) document.getElementById('L02i').innerHTML = "Einzugebende Anzahl von LEDs ist immer die Anzahl der physikalischen LEDs (auch wenn Gruppen von 3 oder 6 physikalischen LEDs bei 12V/24V-Streifen als eine einzelne LED angesteuert werden)";
+	if(document.getElementById('L02j')) document.getElementById('L02j').innerHTML = "COB Streifen: Bei der Anzahl der einzugebenden LEDs handelt es sich um die Anzahl der RGB(W)-LEDs, nicht um die Anzahl der LEDs aller farben zusammen. Wenn Sie beispielsweise einen RGB-COB-Streifen mit 720 LEDs/m haben, bedeutet dies, dass er 240 RGB-LEDs/m (=720/3) hat, Sie geben also 240 für 1 Meter ein.";
 	    
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Eingaben:";
         if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED Streifen Typ:";
         if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Farbe zum Leuchten:";
-        if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Anzahl von LEDs (physikalisch):";
+        if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Anzahl von RGB(W) LEDs (physikalisch):";
         if(document.getElementById('L07')) document.getElementById('L07').innerHTML = "Helligkeit:";
         if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Länge der Zuleitung (PSU zum LED) [cm]:";
         if(document.getElementById('L09')) document.getElementById('L09').innerHTML = "Umgebungstemperatur:";
@@ -307,11 +309,12 @@ function LangChanged() {
 	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Power injections: assumed max. current per end injection 4.5 A; 9 A for middle injection (mini strip: 3 A / 6 A)";
         if(document.getElementById('L02h')) document.getElementById('L02h').innerHTML = "LED power data: own measurement + approx. 10% margin";
 	if(document.getElementById('L02i')) document.getElementById('L02i').innerHTML = "The number of LEDs to be entered is always the number of physical LEDs (even if groups of 3 or 6 physical LEDs by 12V/24V strips are controlled as a single LED)";
-	    
+	if(document.getElementById('L02j')) document.getElementById('L02j').innerHTML = "COB strips: the number of LEDs to be entered is the number of RGB(W) LEDs, not the number of all color LEDs. For example, if you have RGB COB strip with 720 LEDs/m, it means it has 240 RGB LEDs/m (=720/3), so you enter 240 for 1 meter.";
+	
         if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Input fields:";
         if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "LED strip type:";
         if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Color to be controlled:";
-        if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Number of (physical) LEDs:";
+        if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Number of RGB(W) (physical) LEDs:";
         if(document.getElementById('L07')) document.getElementById('L07').innerHTML = "Brightness:";
         if(document.getElementById('L08')) document.getElementById('L08').innerHTML = "Wire length (PSU to LED) [cm]:";
         if(document.getElementById('L09')) document.getElementById('L09').innerHTML = "Ambient temperature:";
