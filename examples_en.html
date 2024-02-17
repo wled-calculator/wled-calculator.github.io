@@ -26,6 +26,7 @@
 		<li><a href="#Example1">Example 1: A simple LED strip (3 meters with 30 LEDs/meter)</a></li>
 		<li><a href="#Example2">Example 2: A 75 inch TV should have Ambilight. A total of 152 LEDs of type SK6812RGBNW</a></li>
 		<li><a href="#Example3">Example 3: 18 meter WS28xx RGB FCOB LED strip 24 V (720 LEDs/m), two PSU</a></li>
+		<li><a href="#Example4">Example 4: 2x 20 meter WS2811 LED strips for a bowling lane; EMC: avoidance of mass loops</a></li>
 		</ul>
 </div>
 <div class="container m-2 p-0">
@@ -80,6 +81,7 @@
 		The fuses can be integrated into the cable or you can use a special fuse board such as <a href="https://shop.myhome-control.de/Sicherungsboard-fuer-WLED-Controller/HW10010" target="_blank">this one</a>.
 	</div>
   </div>
+  <hr>
   <div class="container"  id="Example3">
 		<h5>Example 3: 18 meter WS28xx RGB FCOB LED strip 24 V (720 LEDs/m), two PSU</h5>
 	<div class="container m-2 p-0">
@@ -115,7 +117,7 @@
 		<ol>
 		<li>The 24 V cable on the LED strip must be cut through at the red points. This ensures that no current can flow from one power supply to the other in order to ensure their trouble-free and safe operation.</li>
 		<li>The total standby power consumption is approx. 10 watts (see calculator results). Therefore, you should use relays to save electricity and protect the environment.</li>
-		<li>The number of “equivalent” physical RGB LEDs is 4320 as calculated above. Since 24 V COB strips usually have 12 of them in a logical group (you can see it based on the amount of cut point per meter on your strip), the number of logical LEDs is 360. These can all be controlled by a single WLED controller; in the WLED software you specify the number of LEDs as 360.</li>
+		<li>The number of “equivalent” physical RGB LEDs is 4320 as calculated above. Since 24 V strips usually have 6 of them in a logical group, the number of logical LEDs is 720. These can all be controlled by a single WLED controller; in the WLED software you specify the number of LEDs as 720.</li>
 		<li>The power distribution can be done directly on each power supply, then 4 lines go up from each power supply, i.e. +24V and GND for each 4.5 m LED section (1080 LEDs). For each segment you can calculate this using the calculator as follows:</li>
 		</ol>
 		<img src="example3_8_en.jpg" class="img-fluid" alt="Beispiel3: Lösung 5" style="width:800px;">
@@ -123,8 +125,49 @@
 		The whole thing can then be implemented, for example, with a controller, two 24 V relay boards and 4x 5A fuses from <a href="https://shop.myhome-control.de" target="_blank">MyHome-Control</a> as follows:
 		<br>
 		<img src="example3_9.jpg" class="img-fluid" alt="Beispiel3: Lösung 6" style="width:400px;">
+		<br>One aspect, namely the negative effect of mass loops, was not covered in this example. Take a look at the next example.
+	</div>
+  <hr>
+  <div class="container"  id="Example4">
+		<h5>Example 4: 2x 20 meter WS2811 LED strips for a bowling lane; EMC: avoidance of mass loops</h5>
+	<div class="container m-2 p-0">
+		<b><u>Problem:</u></b> A bowling alley should be illuminated from both sides with an RGB LED strip. The LED strips on both sides should always light up synchronously with one another. The lane is approx. 20 m long and approx. 1 m wide. Since there is already pretty good white lighting, you decide for RGB strips without separate white LEDs. But you would like to have the option of operating the LEDS with full brightness as RGB white too.
+		<br>
+		<img src="example4_1.jpg" class="img-fluid" alt="Example4: Problem" style="width:400px;">
+		<br>
+		<b><u>Solution:</u></b> You use WS2811 RGB strips with 30 LEDs/m. This means you have 600 LEDs (=20m*30LEDs/m) per side. If you enter this information into the calculator, the current calculated is 8.13 A per side and it has to be fed in from the front and from the back:
+		<br>
+		<img src="example4_2_en.jpg" class="img-fluid" alt="Example4: Solution 1" style="width:800px;">
+		<br>
+		If the power supply is placed at the front, the length of the cable to the rear is approx. 20 meters for each side:
+		<br>
+		<img src="example4_4.jpg" class="img-fluid" alt="Example4: Solution 2" style="width:800px;">
+		<br>
+		This would require a very high cross-section of the cable (6 mm<sup>2</sup>) in order to keep the voltage drop sufficiently low:
+		<br>
+		<img src="example4_3_en.jpg" class="img-fluid" alt="Example4: Solution 3" style="width:800px;">
+		<br>
+		An alternative would be to consider a second power supply, which could be placed at the back and would supply the second half of both LED strips directly from there. To do this, you would separate the 12V in the middle of both strips (for safety reasons, so that both power supplies are decoupled):
+		<br>
+		<img src="example4_5.jpg" class="img-fluid" alt="Example4: Solution 4" style="width:800px;">
+		<br>
+		However, there is still a potential problem to consider: there is a continuous GND connection that basically covers the entire area of the bowling alley. This creates a so-called ground loop, i.e. a low-resistance, large-area loop formed by the ground connection. Such ground loops are problematic from an EMC perspective because they easily introduce interference into the circuit. This can lead to malfunctions in the LEDs. On the other hand, a continuous ground connection of all components is necessary for operation. The problem can be solved, for example, by using a separate power supply for each side at the rear end:
+		<br>
+		<img src="example4_6.jpg" class="img-fluid" alt="Example4: Solution 5" style="width:800px;">
+		<br>
+		This means that all relevant GND connections remain present, but no ground loop is formed.
+		<br>Now all cables can be dimensioned. The first power supply at the front (PSU1) supplies two strip halves with 300 LEDs each. The second and third power supplies (PSU2 and PSU3) also power 300 LEDs each. So we calculate the necessary cable and fuse for each half of the strip (300 LEDs each):
+		<br>
+		<img src="example4_7_en.jpg" class="img-fluid" alt="Example4: Solution 6" style="width:800px;">
+		<br>
+		A 0.34 mm<sup>2</sup> cable with a 5 A fuse is sufficient. However, the wire section between PSU1 and the power distribution to both LED strips must be dimensioned larger. With a 10 A power supply, the cross section is well dimensioned at 1.5 mm<sup>2</sup> and is typically well protected by the overload protection of the power supply. For more safety or if PSU can deliver more than 10 A current, a fuse can be used here.
+		<br>For completeness, it can also be added that the data line of the two strips can be connected to a single data output of the WLED controller, as both strips should always work synchronously.
+		<br>The next picture shows an example of an implementation with a <a href="https://shop.myhome-control.de/ABC-WLED-Controller-Board-5-24V/HW10015" target="_blank">ABC! WLED Controller (5-24V)</a> and a <a href="https://shop.myhome-control.de/Sicherungsboard-fuer-WLED-Controller/HW10010" target="_blank">fuse board</a> shown:
+		<br>
+		<img src="example4_8.jpg" class="img-fluid" alt="Example4: Lösung 7" style="width:800px;">
 		<br>
 	</div>
+  </div>
   </div>
 </div>
 <div class="container m-2 p-0">
