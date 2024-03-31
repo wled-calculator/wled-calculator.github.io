@@ -125,7 +125,7 @@
 			  
 			 </div>
 			</div>
-          <img src="System.jpg" class="img-fluid" alt="system schematics" style="width:400px;">
+          <span id="SystemJPG"><img src="System.jpg" class="img-fluid" alt="system schematics" style="width:400px;"></span>
           <hr>
           <div>
             <h5 id="L12" style="font-weight: bold;">Results:</h5>		  
@@ -507,6 +507,13 @@ function CalcResults() {
 	if(number_injections==3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und in der Mitte ":"at the beginning, at the end of the LED strip and in the middle";
 	if(number_injections>3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und dazwischen verteilt":"at the beginning, at the end of the LED strip and inbetween distributed";
 	document.getElementById('injstring_result').innerHTML=" ("+inj_string+")";
+
+	// exchange system.jpg if required
+	if(number_injections==1) {
+		document.getElementById('SystemJPG').innerHTML='<img src="System.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+	} else {
+		document.getElementById('SystemJPG').innerHTML=(document.getElementById('lang').selectedIndex==0?'<img src="System_err_de.jpg" class="img-fluid" alt="system schematics" style="width:400px;">':'<img src="System_err_en.jpg" class="img-fluid" alt="system schematics" style="width:400px;">');
+	}
 	
 	// injections: accordion
 	if(number_injections==1 || number_injections>MAX_INJ) {
