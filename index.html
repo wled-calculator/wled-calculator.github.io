@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container m-2 p-0">
-  <h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> p</span><span style="color:brown">o</span><span style="color:hotpink">w</span><span style="color:lightcoral">e</span><span style="color:red">r</span><span style="color:seagreen"> c</span><span style="color:crimson">a</span><span style="color:darkgreen">l</span><span style="color:darkmagemnta">c</span><span style="color:darkblue">u</span><span style="color:red">l</span><span style="color:darksalmon">a</span><span style="color:lightpink">t</span><span style="color:darkolivengreen">o</span><span style="color:orangered">r</span></h3>
+  <h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> p</span><span style="color:brown">o</span><span style="color:hotpink">w</span><span style="color:lightcoral">e</span><span style="color:red">r</span><span style="color:seagreen"> c</span><span style="color:crimson">a</span><span style="color:darkgreen">l</span><span style="color:darkmagenta">c</span><span style="color:darkblue">u</span><span style="color:red">l</span><span style="color:darksalmon">a</span><span style="color:lightpink">t</span><span style="color:darkolivegreen">o</span><span style="color:orangered">r</span></h3>
   
   <div class="form-floating mb-1">
   <select id="lang" onchange="LangChanged();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
@@ -153,11 +153,11 @@
 			
 			<li>
 				<span id="L21">Recommended number of power injections: </span>
-				<span><b style="white-space: nowrap;"><span id="numinj_result"></span></b><span id="injstring_result"></span</span>
+				<span><b style="white-space: nowrap;"><span id="numinj_result"></span></b><span id="injstring_result"></span></span>
 			</li>
 			<li>
 				<span id="L12e">Power off consumption (standby): </span>
-				<span><b style="white-space: nowrap;"><span id="poweroff_result"></span></b><span id="poweroffstring_result"></span</span>
+				<span><b style="white-space: nowrap;"><span id="poweroff_result"></span></b><span id="poweroffstring_result"></span></span>
 			</li>
           </ul>
 		  
@@ -254,6 +254,21 @@
 <script>
 var dataset;
 var MAX_INJ=12;
+
+function InitLang() {
+    const langSelectElement = document.getElementById('lang');
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedLang = urlParams.get('lang') ?? 'Deutsch';
+
+    const targetIndex = Array.from(langSelectElement.options).findIndex(
+        language => language.label.toLowerCase() === requestedLang.toLowerCase()
+    );
+
+    if (targetIndex !== -1) {
+        langSelectElement.selectedIndex = targetIndex;
+    }
+}
+
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
@@ -761,6 +776,7 @@ window.onload = function () {
 		wlenContainer_content=wlenContainer_content+'<div class="col mb-1" id="wlen'+i.toString()+'"><div class="form-floating"><input id="input-wirelen'+i.toString()+'" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 17em; width:auto;"><label for="input-wirelen'+i.toString()+'"><span id="L23_'+i.toString()+'">Wire length injection L'+i.toString()+' [cm]:</span></label></div></div>';
 	}
 	document.getElementById('wlenContainer').innerHTML = wlenContainer_content;
+    InitLang();
     LangChanged();
 };
 </script>
