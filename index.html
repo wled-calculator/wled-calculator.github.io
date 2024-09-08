@@ -254,6 +254,21 @@
 <script>
 var dataset;
 var MAX_INJ=12;
+
+function InitLang() {
+    const langSelectElement = document.getElementById('lang');
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedLang = urlParams.get('lang') ?? 'Deutsch';
+
+    const targetIndex = Array.from(langSelectElement.options).findIndex(
+        language => language.label.toLowerCase() === requestedLang.toLowerCase()
+    );
+
+    if (targetIndex !== -1) {
+        langSelectElement.selectedIndex = targetIndex;
+    }
+}
+
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
@@ -761,6 +776,7 @@ window.onload = function () {
 		wlenContainer_content=wlenContainer_content+'<div class="col mb-1" id="wlen'+i.toString()+'"><div class="form-floating"><input id="input-wirelen'+i.toString()+'" type="number" min="1" size="5" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 17em; width:auto;"><label for="input-wirelen'+i.toString()+'"><span id="L23_'+i.toString()+'">Wire length injection L'+i.toString()+' [cm]:</span></label></div></div>';
 	}
 	document.getElementById('wlenContainer').innerHTML = wlenContainer_content;
+    InitLang();
     LangChanged();
 };
 </script>
