@@ -137,7 +137,7 @@
 			</li>
 			
             <li>
-				<span id="L12b">Recommended minimal wire crosssection: </span>
+				<span id="L12b">Recommended minimal wire cross-section: </span>
 				<span><b style="white-space: nowrap;"><span id="mm2_result"></span> mm<sup>2</sup></b> (<b style="white-space: nowrap;">AWG <span id="awg_result"></span></b>)</span>
 			</li>
 			
@@ -340,7 +340,7 @@ function LangChanged() {
         if(document.getElementById('L11')) document.getElementById('L11').innerHTML = "Wire laying:";
         if(document.getElementById('L12')) document.getElementById('L12').innerHTML = "Results:";
         if(document.getElementById('L12a')) document.getElementById('L12a').innerHTML = "LED power consumption: ";
-        if(document.getElementById('L12b')) document.getElementById('L12b').innerHTML = "Recommended minimal wire crosssection: ";
+        if(document.getElementById('L12b')) document.getElementById('L12b').innerHTML = "Recommended minimal wire cross-section: ";
         if(document.getElementById('L12c')) document.getElementById('L12c').innerHTML = "Recommended fuse (automotive standard or mini): ";
         if(document.getElementById('L12d')) document.getElementById('L12d').innerHTML = "Total voltage drop (wire  + fuse): ";
 	if(document.getElementById('L12e')) document.getElementById('L12e').innerHTML = "Power off (standby) consumption: ";
@@ -358,7 +358,7 @@ function LangChanged() {
 		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = 'High current: calculate with power injections:';
 		
 		for(var i = 1; i <= MAX_INJ; i++) {
-			if(document.getElementById('L23_'+i.toString())) document.getElementById('L23_'+i.toString()).innerHTML = 'Wire lenght injection L'+i.toString()+' [cm]:';
+			if(document.getElementById('L23_'+i.toString())) document.getElementById('L23_'+i.toString()).innerHTML = 'Wire length injection L'+i.toString()+' [cm]:';
 		}
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Injection results:';
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '<a href="examples_en.html" target="_blank">Examples of calculations</a>';
@@ -461,12 +461,12 @@ function CalcResults() {
 		// calculate volatge drop left for the wire
 		var wire_vdrop=0;
 		var allowed_wire_vdrop = max_vdrop - fuse_vdrop;
-		// calculate minimum crosssection required based on voltage drop
+		// calculate minimum cross-section required based on voltage drop
 		var q_drop = 2*current*0.01786*wirelen/allowed_wire_vdrop*(1+0.0039*(70-20));
 		// get temperature coefficient for wire, will be needed later
 		
 		// start with the thickest wire (higher index in dataset)
-		var wire_index=dataset[wire_cstype].crosssections.length-1;
+		var wire_index=dataset[wire_cstype].cross-sections.length-1;
 		if(fuse_rating>dataset[wire_cstype].max_currents[system_index][wire_index]*wire_temp_coef) {
 			document.getElementById('mm2_result').innerHTML="<span style='color:red'>"+(document.getElementById('lang').selectedIndex==0?"Zu hoher Strom für eine Leitung!":"Too high current for one wire!")+"</span>";
 			document.getElementById('awg_result').innerHTML="<span style='color:red'>--</span>";
@@ -482,17 +482,17 @@ function CalcResults() {
 			document.getElementById('vdrop_result').innerHTML="";
 			document.getElementById('numinj_result').innerHTML="";
 		}
-		// go down all wires crosssections, checking if they are still OK
+		// go down all wires cross-sections, checking if they are still OK
 		for(var i = wire_index-1; i>=0; i--) {
-			if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
+			if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*current*0.01786*wirelen/dataset[wire_cstype].cross-sections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
 				wire_index--;
 			}
 		}
 		if(!fail) {
 			// now we have lowest wire_index, calculate resulting voltage drop
-			wire_vdrop = 2*current*0.01786*wirelen/dataset[wire_cstype].crosssections[wire_index]*(1+0.0039*(70-20))
+			wire_vdrop = 2*current*0.01786*wirelen/dataset[wire_cstype].cross-sections[wire_index]*(1+0.0039*(70-20))
 			
-			document.getElementById('mm2_result').innerHTML=dataset[wire_cstype].crosssections[wire_index];
+			document.getElementById('mm2_result').innerHTML=dataset[wire_cstype].cross-sections[wire_index];
 			document.getElementById('awg_result').innerHTML=dataset[wire_cstype].awgs[wire_index];
 			
 			//resulting total voltage drop
@@ -556,7 +556,7 @@ function CalcResults() {
 	inj_arr_fuse_rating=[];
 	inj_arr_fuse_color=[];
 	inj_arr_wire_length=[];
-	inj_arr_wire_crosssection=[];
+	inj_arr_wire_cross-section=[];
 	inj_arr_wire_awg=[];
 	
 	var curr_inj=0;
@@ -589,19 +589,19 @@ function CalcResults() {
 		// calculate volatge drop left for the wire
 		wire_vdrop=0;
 		allowed_wire_vdrop = max_vdrop - fuse_vdrop;
-		// calculate minimum crosssection required based on voltage drop
+		// calculate minimum cross-section required based on voltage drop
 		q_drop = 2*curr_inj*0.01786*wirelen_inj/allowed_wire_vdrop*(1+0.0039*(70-20));
 		
 		// start with the thickest wire (higher index in dataset)
-		wire_index=dataset[wire_cstype].crosssections.length-1;
-		// go down all wires crosssections, checking if they are still OK
+		wire_index=dataset[wire_cstype].cross-sections.length-1;
+		// go down all wires cross-sections, checking if they are still OK
 		for(var i = wire_index-1; i>=0; i--) {
-			if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*curr_inj*0.01786*wirelen_inj/dataset[wire_cstype].crosssections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
+			if(fuse_rating<=dataset[wire_cstype].max_currents[system_index][i]*wire_temp_coef && 2*curr_inj*0.01786*wirelen_inj/dataset[wire_cstype].cross-sections[i]*(1+0.0039*(70-20))<=allowed_wire_vdrop) {
 				wire_index--;
 			}
 		}
 		// now we have lowest wire_index, calculate resulting voltage drop
-		wire_vdrop = 2*curr_inj*0.01786*wirelen_inj/dataset[wire_cstype].crosssections[wire_index]*(1+0.0039*(70-20))
+		wire_vdrop = 2*curr_inj*0.01786*wirelen_inj/dataset[wire_cstype].cross-sections[wire_index]*(1+0.0039*(70-20))
 		
 		//resulting total voltage drop
 		total_vdrop=wire_vdrop+fuse_vdrop;
@@ -611,13 +611,13 @@ function CalcResults() {
 			inj_arr_max_voltage_drop_toohigh[j]=0;
 		}
 		
-		console.log("INJ="+j.toString()+"; fuse_rating="+fuse_rating.toString()+"; crossec="+dataset[wire_cstype].crosssections[wire_index]+"(AWG "+dataset[wire_cstype].awgs[wire_index]+"); total_vdrop="+total_vdrop.toString());
+		console.log("INJ="+j.toString()+"; fuse_rating="+fuse_rating.toString()+"; crossec="+dataset[wire_cstype].cross-sections[wire_index]+"(AWG "+dataset[wire_cstype].awgs[wire_index]+"); total_vdrop="+total_vdrop.toString());
 		inj_arr_max_current[j]=curr_inj.toFixed(2).toString()+ " A";
 		inj_arr_max_voltage_drop[j]=total_vdrop.toFixed(3).toString()+ " V";
 		inj_arr_fuse_rating[j]=fuse_rating.toString()+" A";
 		inj_arr_fuse_color[j]=document.getElementById('lang').selectedIndex==0?(dataset.fuses.colors_de[fuse_index]):(dataset.fuses.colors_en[fuse_index]);
 		inj_arr_wire_length[j]=document.getElementById('input-wirelen'+j.toString()).value+" cm";
-		inj_arr_wire_crosssection[j]=dataset[wire_cstype].crosssections[wire_index] +" mm<sup>2</sup>";
+		inj_arr_wire_cross-section[j]=dataset[wire_cstype].cross-sections[wire_index] +" mm<sup>2</sup>";
 		inj_arr_wire_awg[j]=dataset[wire_cstype].awgs[wire_index];
 		////////////////////////////////////////////////////
 		
@@ -650,7 +650,7 @@ function CalcResults() {
 	
 	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Min. Leitungsquerschnitt':'Min. wire cross section')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
-		InjResultsBody=InjResultsBody+'<td style="text-align:center;"><span style="white-space: nowrap;">'+inj_arr_wire_crosssection[j]+'</span> <span style="white-space: nowrap;">(AWG '+inj_arr_wire_awg[j]+')</span></td>';
+		InjResultsBody=InjResultsBody+'<td style="text-align:center;"><span style="white-space: nowrap;">'+inj_arr_wire_cross-section[j]+'</span> <span style="white-space: nowrap;">(AWG '+inj_arr_wire_awg[j]+')</span></td>';
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
