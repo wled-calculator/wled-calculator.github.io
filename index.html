@@ -120,7 +120,7 @@
 					<option value="wires">EU type (in mm2)</option>
 					<option value="wires_us">US type (AWG)</option>
 				  </select>
-					<label for="select-wire-cs"><span id="L20">Wire cross sections to use:</span></label>
+					<label for="select-wire-cs"><span id="L20">Wire cross-sections to use:</span></label>
 				  </div>
 			  </div>
 			  
@@ -353,7 +353,7 @@ function LangChanged() {
         if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful web pages:";
         if(document.getElementById('L18')) document.getElementById('L18').innerHTML = 'Legal notice';
         if(document.getElementById('L19')) document.getElementById('L19').innerHTML = 'Data privacy';
-        if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Wire cross sections to use:';
+        if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Wire cross-sections to use:';
 		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = 'Recommended number of injections:';
 		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = 'High current: calculate with power injections:';
 		
@@ -648,7 +648,7 @@ function CalcResults() {
 	}
 	InjResultsBody=InjResultsBody+'</tr>';
 	
-	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Min. Leitungsquerschnitt':'Min. wire cross section')+'</th>';
+	InjResultsBody=InjResultsBody+'<tr><th scope="row">'+(lang_index==0?'Min. Leitungsquerschnitt':'Min. wire cross-section')+'</th>';
 	for(var j = 1; j <= number_injections; j++) {
 		InjResultsBody=InjResultsBody+'<td style="text-align:center;"><span style="white-space: nowrap;">'+inj_arr_wire_crosssection[j]+'</span> <span style="white-space: nowrap;">(AWG '+inj_arr_wire_awg[j]+')</span></td>';
 	}
