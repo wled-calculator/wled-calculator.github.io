@@ -301,8 +301,11 @@ var MAX_INJ=12;
 function InitLang() {
     const langSelectElement = document.getElementById('lang');
     const urlParams = new URLSearchParams(window.location.search);
-    const requestedLang = urlParams.get('lang') ?? 'Deutsch';
-
+    let requestedLang = urlParams.get('lang');
+	if (!requestedLang) {
+		requestedLang=navigator.language || navigator.userLanguage;
+		requestedLang = (requestedLang.includes("de")) ? "deutsch":"english";
+	}
     const targetIndex = Array.from(langSelectElement.options).findIndex(
         language => language.label.toLowerCase() === requestedLang.toLowerCase()
     );
@@ -828,3 +831,4 @@ window.onload = function () {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
+
