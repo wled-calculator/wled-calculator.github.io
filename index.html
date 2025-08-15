@@ -224,12 +224,14 @@
 		        </ul>
 		</div>
 		<div class="col-md">
+			<div id="carousel1_title"><span style="color: blue;"><b>Would you like to become a distributor of our products?</b> <a href="mailto:info@myhome-control.de">Contact us!</a></span></div>
 			<div id="carousel1" class="carousel carousel-dark slide img-fluid" data-bs-ride="carousel" data-bs-interval="3000">
 			  <div class="carousel-indicators">
 				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="1" aria-label="Slide 2"></button>
 				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="2" aria-label="Slide 3"></button>
 				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="3" aria-label="Slide 4"></button>
+				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="4" aria-label="Slide 5"></button>
 			  </div>
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
@@ -250,6 +252,11 @@
 				<div class="carousel-item">
 				  <a target="_blank" href="https://shop.myhome-control.de">
 				  <img src="https://wled-compile.github.io/pictures/werbung4.jpg" class="d-block w-100" alt="WLED Ethernet Adapter for WLED Controller V43">
+				 </a> 
+				</div>
+				<div class="carousel-item">
+				  <a target="_blank" href="https://shop.myhome-control.de">
+				  <img src="https://wled-compile.github.io/pictures/werbung5.jpg" class="d-block w-100" alt="WLED RS-485/DMX adapter">
 				 </a> 
 				</div>
 			  </div>
@@ -317,7 +324,7 @@ function InitLang() {
 
 function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
-	document.getElementById("carousel1").style.display = "block";
+	document.getElementById("carousel1_title").style.display = "none";
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Achtung:</span> nur eine Schätzung! <span style='color:blue;text-decoration: underline;'>Erfahren Sie hier mehr Details</span>";
         if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "Für eine detaillierte Auslegung einer elektrischen Anlage müssen Sie genau die in Ihrem Land geltenden normativen Vorgaben erfüllen! Dieser Rechner kann lediglich eine erste Schätzung liefern!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative Grundlagen: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430";
@@ -364,7 +371,7 @@ function LangChanged() {
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '<a href="examples_de.html" target="_blank">Beispiele Berechnungen</a>';
       
     } else {
-	document.getElementById("carousel1").style.display = "none";
+	document.getElementById("carousel1_title").style.display = "block";
         if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "<span style='color:red'>Attention:</span> estimation only! <span style='color:blue;text-decoration: underline;'>Find out here more details</span>";
         if(document.getElementById('L02b')) document.getElementById('L02b').innerHTML = "For a specified design of an electrical system, YOU must precisely meet the normative specifications applicable in your country! This calculator can only provide a first estimate!";
         if(document.getElementById('L02c')) document.getElementById('L02c').innerHTML = "Normative bases: VDE 0298 Teil 2 und 4, VDE 0100 Teil 430 (German technical rules)";
@@ -831,4 +838,5 @@ window.onload = function () {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
+
 
