@@ -58,7 +58,7 @@
 			  
 			  <div class="col mb-1">
 				  <div class="form-floating">
-					<select id="select-leds" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
+					<select id="select-leds" onchange="SelectLEDType();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 					<label for="select-leds"><span id="L04">LED strip type:</span></label>
 				  </div>
 			  </div>
@@ -70,14 +70,38 @@
 					<label for="select-leds"><span id="L05">Color:</span></label>
 				  </div>
 			  </div>
-			  
-			  <div class="col mb-1">
+			 <div class="col mb-1">
+				<div class="form-check" id="NumDiv">
+				  <input class="form-check-input" type="radio" name="radioNumOrLen" id="radioNum" onchange="NumOrLenChanged();">
+				  <label class="form-check-label" for="radioNum">
+					<span id="L28">Use total number of LEDs</span>
+				  </label>
+				</div>
+				<div class="form-check" id="LenDiv">
+				  <input class="form-check-input" type="radio" name="radioNumOrLen" id="radioLen" onchange="NumOrLenChanged();" checked>
+				  <label class="form-check-label" for="radioLen">
+					<span id="L29">Use strip length</span>
+				  </label>
+				</div>
+			</div>
+			  <div class="col mb-1" id="NumLedsDiv">
 				  <div  class="form-floating">
 					<input id="input-numberofleds" type="number" min="1" size="5" data-bind="value:input-numberofleds" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 20em; width:auto;">
 					<label for="input-numberofleds"><span id="L06">Number of LEDs:</span></label>
 				  </div>
 			  </div>
-			  
+			  <div class="col mb-1" id="ledsPerMDiv">
+				  <div  class="form-floating">
+					<select id="select-ledspermeter" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
+					<label for="select-ledspermeter"><span id="L26">LEDs per meter:</span></label>
+				  </div>
+			  </div>
+			  <div class="col mb-1" id="StripLengthDiv">
+				  <div  class="form-floating">
+					<input id="input-striplength" type="number" min="0" size="5" data-bind="value:input-striplength" onchange="CalcResults();" class="form-control" aria-label="" style="min-width: 20em; width:auto;">
+					<label for="input-striplength"><span id="L27">LED strip length (m):</span></label>
+				  </div>
+			  </div>
 			  <div class="col mb-1">
 				  <div class="form-floating">
 					<select id="select-brightness" onchange="CalcResults();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
@@ -171,6 +195,11 @@
 				</h2>
 				<div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingInjDetails" data-bs-parent="#accordionInjDetails">
 				  <div class="accordion-body">
+					<div class="form-check form-switch">
+					  <input class="form-check-input" type="checkbox" id="switchNoEndInj" onchange="CalcResults();">
+					  <label class="form-check-label" for="switchNoEndInj"><span id="L30">No end injection</span></label>
+					</div>
+					<br>
 					<div id="SystemImageInj">
 						<img src="System_2inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">
 					</div>
@@ -305,6 +334,48 @@
 var dataset;
 var MAX_INJ=12;
 
+function SelectLEDType() {
+	const led_index=parseInt(document.getElementById('select-leds').value);
+    const ledspm_arr = dataset.leds.ledspm[led_index];
+	const ledspm_labels_arr = dataset.leds.ledspm_labels[led_index];
+	document.getElementById('ledsPerMDiv').classList.add("d-none");
+	document.getElementById('StripLengthDiv').classList.add("d-none");
+	document.getElementById('ledsPerMDiv').classList.add("d-none");
+	document.getElementById('NumLedsDiv').classList.remove("d-none");
+	document.getElementById('radioNum').checked=true;
+	
+	if(ledspm_arr.length==0) {
+		document.getElementById('radioLen').disabled=true;
+	} else {
+		document.getElementById('radioLen').disabled=false;
+		// first delete all options
+		var sel=document.getElementById('select-ledspermeter');
+		sel.options.length=0;
+		for(var i = 0; i < ledspm_arr.length; i++) {
+			var opt = document.createElement('option');
+			opt.value = ledspm_arr[i];
+			opt.innerHTML = ledspm_labels_arr[i];
+			sel.appendChild(opt);
+		  }
+		document.getElementById('select-ledspermeter').selectedIndex=0;
+		document.getElementById('input-striplength').value=1;
+	}
+	NumOrLenChanged();
+}
+
+function NumOrLenChanged() {
+	if(document.getElementById('radioNum').checked==true) {
+		document.getElementById('StripLengthDiv').classList.add("d-none");
+		document.getElementById('ledsPerMDiv').classList.add("d-none");
+		document.getElementById('NumLedsDiv').classList.remove("d-none");
+	} else {
+		document.getElementById('StripLengthDiv').classList.remove("d-none");
+		document.getElementById('ledsPerMDiv').classList.remove("d-none");
+		document.getElementById('NumLedsDiv').classList.add("d-none");
+	}
+	CalcResults();
+}
+
 function InitLang() {
     const langSelectElement = document.getElementById('lang');
     const urlParams = new URLSearchParams(window.location.search);
@@ -369,6 +440,11 @@ function LangChanged() {
 		}
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Ergebnisse (Stromeinspeisungen):';
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '<a href="examples_de.html" target="_blank">Beispiele Berechnungen</a>';
+		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'Anzahl LEDs pro Meter:';
+		if(document.getElementById('L27')) document.getElementById('L27').innerHTML = 'Länge LED Streifen (m):';
+		if(document.getElementById('L28')) document.getElementById('L28').innerHTML = 'LED Anzahl verwenden';
+		if(document.getElementById('L29')) document.getElementById('L29').innerHTML = 'LED Streifen Länge verwenden';
+		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Keine Endeinspeisung verwenden';
       
     } else {
 	document.getElementById("carousel1_title").style.display = "block";
@@ -417,6 +493,11 @@ function LangChanged() {
 		}
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Injection results:';
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '<a href="examples_en.html" target="_blank">Examples of calculations</a>';
+		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'LEDs per meter:';
+		if(document.getElementById('L27')) document.getElementById('L27').innerHTML = 'LED strip length (m):';
+		if(document.getElementById('L28')) document.getElementById('L28').innerHTML = 'Use total number of LEDs';
+		if(document.getElementById('L29')) document.getElementById('L29').innerHTML = 'Use strip length';
+		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Do not apply end injection';
 
     }
     LoadDataset();
@@ -457,6 +538,10 @@ function CalcResults() {
     var brightness_index=parseInt(document.getElementById('select-brightness').value);
     var brightness=dataset.light_factors.factors[brightness_index];
     var numleds=parseInt(document.getElementById('input-numberofleds').value);
+	if(document.getElementById('radioLen').checked) {
+		const ledsperm=document.getElementById('select-ledspermeter').value;
+		numleds=Math.ceil(ledsperm*document.getElementById('input-striplength').value);
+	}
 	// wirelen: cm in meter:
     var wirelen=parseInt(document.getElementById('input-wirelen').value)/100;
     var max_vdrop_index=parseInt(document.getElementById('select-vdrop').value);
@@ -562,25 +647,39 @@ function CalcResults() {
 	//resulting number of injections
 	var INJ_MAX_CURRENT=dataset.leds.curr_inj[led_index];
 	var number_injections = 0;
+	var NoEndInj=document.getElementById('switchNoEndInj').checked;
+	var singleInjections=NoEndInj?1:2;
+	
 	if(current<=INJ_MAX_CURRENT) {
 		number_injections=1;
 	} else {
 		if(current<=INJ_MAX_CURRENT*2) {
 			number_injections=2;
 		} else {
-			number_injections=2+Math.ceil((current-INJ_MAX_CURRENT*2)/(INJ_MAX_CURRENT*2));
+			number_injections=singleInjections+Math.ceil((current-INJ_MAX_CURRENT*singleInjections)/(INJ_MAX_CURRENT*2));
 		}
 	}
 	document.getElementById('numinj_result').innerHTML=number_injections.toString();
 	
 	// injections: comment
 	var inj_string="";
-	if(number_injections==1) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn der LED Strip":"at the beginning of the LED strip";
-	if(number_injections==2) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn und am Ende der LED Strip":"at the beginning and at the end of the LED strip";
-	if(number_injections==3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und in der Mitte ":"at the beginning, at the end of the LED strip and in the middle";
-	if(number_injections>3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und dazwischen verteilt":"at the beginning, at the end of the LED strip and inbetween distributed";
+	if(number_injections==1) {
+		inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn der LED Strip":"at the beginning of the LED strip";
+	}
+	if(number_injections==2) {
+		if(NoEndInj) {
+			inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn und in der Mitte der LED Strip":"at the beginning and at the middle of the LED strip";
+		} else {
+			inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn und am Ende der LED Strip":"at the beginning and at the end of the LED strip";
+		}
+	}
+	if(NoEndInj) {
+		if(number_injections>=3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn und über die Länge verteilt":"at the beginning of the LED strip and distributed along the strip";
+	} else {
+		if(number_injections==3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und in der Mitte ":"at the beginning, at the end of the LED strip and in the middle";
+		if(number_injections>3) inj_string=document.getElementById('lang').selectedIndex==0?"am Beginn, am Ende der LED Strip und dazwischen verteilt":"at the beginning, at the end of the LED strip and inbetween distributed";
+	}
 	document.getElementById('injstring_result').innerHTML=" ("+inj_string+")";
-
 	// exchange system.jpg if required
 	if(number_injections==1) {
 		document.getElementById('SystemJPG').innerHTML='<img src="System.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
@@ -619,8 +718,8 @@ function CalcResults() {
 		// wirelen: cm in meter:
 		wirelen_inj=parseInt(document.getElementById('input-wirelen'+j.toString()).value)/100;
 		// current in injection
-		curr_inj=current/(number_injections==1?1:2+Math.max(number_injections-2,0)*2);
-		if(j>1 && j<number_injections) {
+		curr_inj=current/(number_injections==1?1:(singleInjections+Math.max(number_injections-singleInjections,0)*2));
+		if(j>1 && (j<number_injections || NoEndInj)) {
 			curr_inj=curr_inj*2;
 		}
 		min_crossection=2*curr_inj*0.01786*wirelen_inj*(1+0.0039*(70-20))/max_vdrop;
@@ -677,11 +776,20 @@ function CalcResults() {
 		////////////////////////////////////////////////////
 		
 	}
-	if(number_injections>1 && number_injections<5) {
-		document.getElementById('SystemImageInj').innerHTML='<img src="System_'+number_injections.toString()+'inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
-	}
-	if(number_injections>4) {
-		document.getElementById('SystemImageInj').innerHTML='<img src="System_jinj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+	if(NoEndInj) {
+		if(number_injections==2) {
+			document.getElementById('SystemImageInj').innerHTML='<img src="System_2inj_ne.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+		}
+		if(number_injections>2) {
+			document.getElementById('SystemImageInj').innerHTML='<img src="System_jinj_ne.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+		}
+	} else {
+		if(number_injections>1 && number_injections<5) {
+			document.getElementById('SystemImageInj').innerHTML='<img src="System_'+number_injections.toString()+'inj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+		}
+		if(number_injections>4) {
+			document.getElementById('SystemImageInj').innerHTML='<img src="System_jinj.jpg" class="img-fluid" alt="system schematics" style="width:400px;">';
+		}
 	}
 	
 	// build result table
@@ -816,7 +924,8 @@ function LoadDataset() {
       
       document.getElementById('MainContainer').style.display = "initial";
       document.getElementById('WaitContainer').style.display = "none";
-      CalcResults();
+	  SelectLEDType();
+      //CalcResults();
     }
   };
   xhttp.open("GET", "dataset.json");
