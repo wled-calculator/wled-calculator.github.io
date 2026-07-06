@@ -562,7 +562,26 @@ function LangChanged() {
         
         if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED boards:';
 		if(isNorthAmericaVisitor()) {
-			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://www.amazon.com/s?me=A2DSSUJJJHGC0W">Amazon Shop (US, Canada)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
+			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="mhc-north-america-banner__link" href="https://www.amazon.com/s?me=A2DSSUJJJHGC0W">Amazon Shop (US, Canada)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
+			const link = document.querySelector('.mhc-north-america-banner__link');
+			if (link) {
+                    link.addEventListener('click', () => {
+                        const key = 'visit_counted_na_amalink';
+                        try {
+                            if (localStorage.getItem(key)) {
+                                return;
+                            }
+                            localStorage.setItem(key, '1');
+                        } catch (error) {
+                            return;
+                        }
+                        fetch('https://wled-api.myhome-control.de/counter-api/counter.php/?subfunc=na_amalink', {
+                            method: 'GET',
+                            mode: 'no-cors',
+                            keepalive: true
+                        }).catch(() => {});
+                    });
+                }		
 		} else {
 			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://wled.shop">WLED Shop (worldwide)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
 		}
