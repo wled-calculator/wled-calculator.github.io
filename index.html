@@ -422,14 +422,14 @@ function SelectLEDType() {
 	const led_index=parseInt(document.getElementById('select-leds').value);
     const ledspm_arr = dataset.leds.ledspm[led_index];
 	const ledspm_labels_arr = dataset.leds.ledspm_labels[led_index];
-	document.getElementById('ledsPerMDiv').classList.add("d-none");
 	document.getElementById('StripLengthDiv').classList.add("d-none");
-	document.getElementById('ledsPerMDiv').classList.add("d-none");
 	document.getElementById('NumLedsDiv').classList.remove("d-none");
+	document.getElementById('ledsPerMDiv').classList.remove("d-none");
 	document.getElementById('radioNum').checked=true;
 	
 	if(ledspm_arr.length==0) {
 		document.getElementById('radioLen').disabled=true;
+		document.getElementById('ledsPerMDiv').classList.add("d-none");
 	} else {
 		document.getElementById('radioLen').disabled=false;
 		// first delete all options
@@ -448,14 +448,19 @@ function SelectLEDType() {
 }
 
 function NumOrLenChanged() {
+	var led_index=parseInt(document.getElementById('select-leds').value);
+	var hasLedspm=dataset.leds.ledspm[led_index].length>0;
 	if(document.getElementById('radioNum').checked==true) {
 		document.getElementById('StripLengthDiv').classList.add("d-none");
-		document.getElementById('ledsPerMDiv').classList.add("d-none");
 		document.getElementById('NumLedsDiv').classList.remove("d-none");
 	} else {
 		document.getElementById('StripLengthDiv').classList.remove("d-none");
-		document.getElementById('ledsPerMDiv').classList.remove("d-none");
 		document.getElementById('NumLedsDiv').classList.add("d-none");
+	}
+	if(hasLedspm) {
+		document.getElementById('ledsPerMDiv').classList.remove("d-none");
+	} else {
+		document.getElementById('ledsPerMDiv').classList.add("d-none");
 	}
 	CalcResults();
 }
@@ -486,7 +491,7 @@ function LangChanged() {
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Annahme: Kabel mit PVC Isolierung; maximale Betriebstemperatur 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Zusätzlich einige anderen Vereinfachungen und Annahmen!";
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Sicherungsdaten: basierend auf Littlefuse Datenblättern";
-	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Einspeisungen: angenommener max. Strom pro Endeinspeisung 4.5 A; 9 A für Mitteneinspeisung (bei mini: 3 bzw. 6 A)";
+	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Einspeisungen: angenommener max. Strom pro für Mitteneinspeisung ist das doppelte der Endeinspeisung.";
         if(document.getElementById('L02h')) document.getElementById('L02h').innerHTML = "LED Leistungsdaten: eigene Messung  + ca. 10% Margin";
 	if(document.getElementById('L02i')) document.getElementById('L02i').innerHTML = "Einzugebende Anzahl von LEDs ist immer die Anzahl der physikalischen LEDs (auch wenn Gruppen von 3 oder 6 physikalischen LEDs bei 12V/24V-Streifen als eine einzelne LED angesteuert werden)";
 	if(document.getElementById('L02j')) document.getElementById('L02j').innerHTML = "COB Streifen: Bei der Anzahl der einzugebenden LEDs handelt es sich um die Anzahl der RGB(W)-LEDs, nicht um die Anzahl der LEDs aller farben zusammen. Wenn Sie beispielsweise einen RGB-COB-Streifen mit 720 LEDs/m haben, bedeutet dies, dass er 240 RGB-LEDs/m (=720/3) hat, Sie geben also 240 für 1 Meter ein.";
@@ -538,7 +543,7 @@ function LangChanged() {
         if(document.getElementById('L02d')) document.getElementById('L02d').innerHTML = "Assumption: cable with PVC insulation; maximum operating temperature 70°C";
         if(document.getElementById('L02e')) document.getElementById('L02e').innerHTML = "Additionally some other simplifications and assumptions!";
         if(document.getElementById('L02f')) document.getElementById('L02f').innerHTML = "Fuse data: based on Littlefuse data sheets";
-	if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Power injections: assumed max. current per end injection 4.5 A; 9 A for middle injection (mini strip: 3 A / 6 A)";
+	    if(document.getElementById('L02g')) document.getElementById('L02g').innerHTML = "Power injections: assumed max. current per middle injection is double of those for end injection";
         if(document.getElementById('L02h')) document.getElementById('L02h').innerHTML = "LED power data: own measurement + approx. 10% margin";
 	if(document.getElementById('L02i')) document.getElementById('L02i').innerHTML = "The number of LEDs to be entered is always the number of physical LEDs (even if groups of 3 or 6 physical LEDs by 12V/24V strips are controlled as a single LED)";
 	if(document.getElementById('L02j')) document.getElementById('L02j').innerHTML = "COB strips: the number of LEDs to be entered is the number of RGB(W) LEDs, not the number of all color LEDs. For example, if you have RGB COB strip with 720 LEDs/m, it means it has 240 RGB LEDs/m (=720/3), so you enter 240 for 1 meter.";
@@ -562,26 +567,7 @@ function LangChanged() {
         
         if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED boards:';
 		if(isNorthAmericaVisitor()) {
-			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="mhc-north-america-banner__link" href="https://www.amazon.com/s?me=A2DSSUJJJHGC0W">Amazon Shop (US, Canada)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
-			const link = document.querySelector('.mhc-north-america-banner__link');
-			if (link) {
-                    link.addEventListener('click', () => {
-                        const key = 'visit_counted_na_amalink';
-                        try {
-                            if (localStorage.getItem(key)) {
-                                return;
-                            }
-                            localStorage.setItem(key, '1');
-                        } catch (error) {
-                            return;
-                        }
-                        fetch('https://wled-api.myhome-control.de/counter-api/counter.php/?subfunc=na_amalink', {
-                            method: 'GET',
-                            mode: 'no-cors',
-                            keepalive: true
-                        }).catch(() => {});
-                    });
-                }		
+			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://www.amazon.com/s?me=A2DSSUJJJHGC0W">Amazon Shop (US, Canada)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
 		} else {
 			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://wled.shop">WLED Shop (worldwide)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
 		}
@@ -752,7 +738,9 @@ function CalcResults() {
 		}
 	}
 	//resulting number of injections
-	var INJ_MAX_CURRENT=dataset.leds.curr_inj[led_index];
+	var ledsperm_index=parseInt(document.getElementById('select-ledspermeter').selectedIndex);
+	if(isNaN(ledsperm_index) || ledsperm_index<0) ledsperm_index=0;
+	var INJ_MAX_CURRENT=dataset.leds.curr_inj[led_index][ledsperm_index];
 	var number_injections = 0;
 	var NoEndInj=document.getElementById('switchNoEndInj').checked;
 	var singleInjections=NoEndInj?1:2;
